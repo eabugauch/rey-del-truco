@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#3b82f6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Truco">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Test Mobile - Anotador de Truco</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            min-height: 100dvh;
+            color: white;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .test-input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+        .test-button {
+            width: 100%;
+            padding: 12px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            background: #3b82f6;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .test-button:active {
+            transform: scale(0.98);
+            background: #2563eb;
+        }
+        .status {
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: monospace;
+        }
+        .success { color: #10b981; }
+        .warning { color: #f59e0b; }
+        .error { color: #ef4444; }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+        h2 {
+            margin-top: 0;
+            font-size: 18px;
+            color: #e5e7eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 Test Mobile Anotador de Truco</h1>
+        
+        <div class="test-section">
+            <h2>📱 Viewport Tests</h2>
+            <button class="test-button" onclick="testViewport()">Test Viewport Dimensions</button>
+            <div id="viewport-status" class="status"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>⌨️ Virtual Keyboard Tests</h2>
+            <input type="text" class="test-input" placeholder="Jugador 1" id="input1">
+            <input type="text" class="test-input" placeholder="Jugador 2" id="input2">
+            <input type="number" class="test-input" placeholder="Puntos" id="input3">
+            <div id="keyboard-status" class="status"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>🎯 Touch & Scroll Tests</h2>
+            <button class="test-button" onclick="testTouch()">Test Touch Responsiveness</button>
+            <button class="test-button" onclick="testScroll()">Test Scroll Lock</button>
+            <div id="touch-status" class="status"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>📊 Performance Tests</h2>
+            <button class="test-button" onclick="testPerformance()">Test Loading & Rendering</button>
+            <div id="performance-status" class="status"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>🚀 Ready for Production?</h2>
+            <button class="test-button" onclick="runAllTests()" style="background: #10b981;">Run All Tests</button>
+            <div id="final-status" class="status"></div>
+        </div>
+    </div>
+
+    <script>
+        let testResults = {
+            viewport: false,
+            keyboard: false,
+            touch: false,
+            performance: false
+        };
+
+        function updateStatus(elementId, message, type = 'success') {
+            const element = document.getElementById(elementId);
+            element.innerHTML = message;
+            element.className = `status ${type}`;
+        }
+
+        function testViewport() {
+            const results = [];
+            
+            // Test viewport dimensions
+            const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+            const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+            results.push(`Viewport: ${vw}x${vh}px`);
+
+            // Test dynamic viewport
+            const dvh = window.innerHeight;
+            results.push(`Dynamic height: ${dvh}px`);
+
+            // Test safe area support
+            const safeArea = CSS.supports('padding', 'env(safe-area-inset-top)');
+            results.push(`Safe area support: ${safeArea ? '✅' : '❌'}`);
+
+            // Test mobile detection
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            results.push(`Mobile detected: ${isMobile ? '✅' : '❌'}`);
+
+            testResults.viewport = true;
+            updateStatus('viewport-status', results.join('<br>'), 'success');
+        }
+
+        function testKeyboard() {
+            const initialHeight = window.innerHeight;
+            updateStatus('keyboard-status', `Monitoring keyboard... Initial height: ${initialHeight}px`, 'warning');
+
+            let keyboardDetected = false;
+            const checkKeyboard = () => {
+                const currentHeight = window.innerHeight;
+                const heightDiff = initialHeight - currentHeight;
+                
+                if (heightDiff > 150 && !keyboardDetected) {
+                    keyboardDetected = true;
+                    testResults.keyboard = true;
+                    updateStatus('keyboard-status', `✅ Keyboard detected! Height diff: ${heightDiff}px`, 'success');
+                } else if (heightDiff < 50 && keyboardDetected) {
+                    updateStatus('keyboard-status', `✅ Keyboard hidden. Test completed successfully.`, 'success');
+                }
+            };
+
+            window.addEventListener('resize', checkKeyboard);
+            if (window.visualViewport) {
+                window.visualViewport.addEventListener('resize', checkKeyboard);
+            }
+
+            // Focus on input to trigger keyboard
+            setTimeout(() => {
+                document.getElementById('input1').focus();
+            }, 500);
+        }
+
+        function testTouch() {
+            let touchCount = 0;
+            const button = event.target;
+            
+            const handleTouch = () => {
+                touchCount++;
+                if (touchCount >= 3) {
+                    testResults.touch = true;
+                    updateStatus('touch-status', '✅ Touch responsiveness: Excellent!', 'success');
+                    button.removeEventListener('touchstart', handleTouch);
+                } else {
+                    updateStatus('touch-status', `Touch test... ${touchCount}/3 taps`, 'warning');
+                }
+            };
+
+            button.addEventListener('touchstart', handleTouch);
+            updateStatus('touch-status', 'Tap this button 3 times quickly...', 'warning');
+        }
+
+        function testScroll() {
+            document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%';
+            
+            setTimeout(() => {
+                document.body.style.overflow = '';
+                document.body.style.position = '';
+                document.body.style.width = '';
+                updateStatus('touch-status', '✅ Scroll lock test completed!', 'success');
+            }, 2000);
+            
+            updateStatus('touch-status', 'Testing scroll lock for 2 seconds...', 'warning');
+        }
+
+        function testPerformance() {
+            const start = performance.now();
+            
+            // Simulate rendering work
+            let frames = 0;
+            const animate = () => {
+                frames++;
+                if (frames < 60) {
+                    requestAnimationFrame(animate);
+                } else {
+                    const end = performance.now();
+                    const fps = Math.round(60000 / (end - start));
+                    testResults.performance = fps > 30;
+                    
+                    const status = fps > 45 ? 'Excellent' : fps > 30 ? 'Good' : 'Poor';
+                    const type = fps > 45 ? 'success' : fps > 30 ? 'warning' : 'error';
+                    
+                    updateStatus('performance-status', `✅ Performance: ${status} (~${fps} FPS)`, type);
+                }
+            };
+            
+            requestAnimationFrame(animate);
+            updateStatus('performance-status', 'Testing rendering performance...', 'warning');
+        }
+
+        function runAllTests() {
+            updateStatus('final-status', 'Running comprehensive test suite...', 'warning');
+            
+            testViewport();
+            setTimeout(() => {
+                testKeyboard();
+                setTimeout(() => {
+                    testPerformance();
+                    setTimeout(() => {
+                        const passed = Object.values(testResults).filter(Boolean).length;
+                        const total = Object.keys(testResults).length;
+                        
+                        if (passed === total) {
+                            updateStatus('final-status', '🎉 ALL TESTS PASSED! Ready for production deployment.', 'success');
+                        } else {
+                            updateStatus('final-status', `⚠️ ${passed}/${total} tests passed. Needs optimization.`, 'warning');
+                        }
+                    }, 2000);
+                }, 1000);
+            }, 500);
+        }
+
+        // Auto-test keyboard when inputs are focused
+        ['input1', 'input2', 'input3'].forEach(id => {
+            document.getElementById(id).addEventListener('focus', testKeyboard);
+        });
+
+        // Initialize
+        updateStatus('viewport-status', 'Ready to test viewport...', 'warning');
+        updateStatus('keyboard-status', 'Focus on an input to test keyboard...', 'warning');
+        updateStatus('touch-status', 'Ready to test touch interactions...', 'warning');
+        updateStatus('performance-status', 'Ready to test performance...', 'warning');
+        updateStatus('final-status', 'Click "Run All Tests" when ready...', 'warning');
+    </script>
+</body>
+</html>

@@ -1,0 +1,932 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =================================================================
+   SISTEMA DE PALETAS COMPLETO - ANOTADOR DE TRUCO
+   Panel de 5 Especialistas en Color - Versión Final
+   ================================================================= */
+
+/* PALETAS PRINCIPALES - VARIABLES CSS */
+:root {
+  /* 🌅 TEMA CÁLIDO: "ATARDECER PAMPEANO" */
+  --calido-bg-primary: #F7F1E8;
+  --calido-bg-surface: rgba(255, 255, 255, 0.85);
+  --calido-bg-elevated: #FFFFFF;
+  --calido-text-primary: #2D1810;
+  --calido-text-secondary: #5D4037;
+  --calido-text-muted: #8D6E63;
+  --calido-color-primary: #8B4513;
+  --calido-color-secondary: #D2B48C;
+  --calido-color-accent: #FF6B35;
+  --calido-color-success: #2E7D32;
+  --calido-color-destructive: #D32F2F;
+  --calido-ink-color: #3E2723;
+  --calido-ink-accent: #FF6B35;
+  --calido-border-primary: rgba(139, 69, 19, 0.2);
+  --calido-border-accent: rgba(255, 107, 53, 0.3);
+  
+  /* 🌙 TEMA OSCURO: "NOCHE DE ASADO" */
+  --oscuro-bg-primary: #1A1611;
+  --oscuro-bg-surface: rgba(42, 37, 31, 0.85);
+  --oscuro-bg-elevated: #2A1F1A;
+  --oscuro-text-primary: #F5F1E8;
+  --oscuro-text-secondary: #D7CCC8;
+  --oscuro-text-muted: #A1887F;
+  --oscuro-color-primary: #E8D5B7;
+  --oscuro-color-secondary: #A67C5A;
+  --oscuro-color-accent: #FF8A50;
+  --oscuro-color-success: #66BB6A;
+  --oscuro-color-destructive: #EF5350;
+  --oscuro-ink-color: #D7CCC8;
+  --oscuro-ink-accent: #FF8A50;
+  --oscuro-border-primary: rgba(232, 213, 183, 0.15);
+  --oscuro-border-accent: rgba(255, 138, 80, 0.3);
+}
+
+/* FIX NUCLEAR PARA ELIMINAR ÓVALO - FORZAR TODO RECTANGULAR */
+* {
+  border-radius: 0 !important;
+}
+
+html, body, #root, .App {
+  border-radius: 0 !important;
+  clip-path: none !important;
+  mask: none !important;
+}
+
+/* =================================================================
+   SISTEMA DE COLORES POR TEMAS - IMPLEMENTACIÓN COMPLETA
+   ================================================================= */
+
+/* 🌅 TEMA CÁLIDO: "ATARDECER PAMPEANO" */
+.theme-calido {
+  --current-bg-primary: var(--calido-bg-primary);
+  --current-bg-surface: var(--calido-bg-surface);
+  --current-bg-elevated: var(--calido-bg-elevated);
+  --current-text-primary: var(--calido-text-primary);
+  --current-text-secondary: var(--calido-text-secondary);
+  --current-text-muted: var(--calido-text-muted);
+  --current-color-primary: var(--calido-color-primary);
+  --current-color-secondary: var(--calido-color-secondary);
+  --current-color-accent: var(--calido-color-accent);
+  --current-color-success: var(--calido-color-success);
+  --current-color-destructive: var(--calido-color-destructive);
+  --current-ink-color: var(--calido-ink-color);
+  --current-ink-accent: var(--calido-ink-accent);
+  --current-border-primary: var(--calido-border-primary);
+  --current-border-accent: var(--calido-border-accent);
+}
+
+/* 🌙 TEMA OSCURO: "NOCHE DE ASADO" */
+.theme-oscuro {
+  --current-bg-primary: var(--oscuro-bg-primary);
+  --current-bg-surface: var(--oscuro-bg-surface);
+  --current-bg-elevated: var(--oscuro-bg-elevated);
+  --current-text-primary: var(--oscuro-text-primary);
+  --current-text-secondary: var(--oscuro-text-secondary);
+  --current-text-muted: var(--oscuro-text-muted);
+  --current-color-primary: var(--oscuro-color-primary);
+  --current-color-secondary: var(--oscuro-color-secondary);
+  --current-color-accent: var(--oscuro-color-accent);
+  --current-color-success: var(--oscuro-color-success);
+  --current-color-destructive: var(--oscuro-color-destructive);
+  --current-ink-color: var(--oscuro-ink-color);
+  --current-ink-accent: var(--oscuro-ink-accent);
+  --current-border-primary: var(--oscuro-border-primary);
+  --current-border-accent: var(--oscuro-border-accent);
+}
+
+
+/* =================================================================
+   SISTEMA DE FUENTES Y TIPOGRAFÍA
+   ================================================================= */
+
+.handwritten-base {
+  font-family: 'Kalam', cursive;
+  letter-spacing: 0.03em;
+  text-rendering: optimizeLegibility;
+}
+
+.handwritten-title {
+  font-family: 'Caveat', cursive;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.1;
+  text-rendering: optimizeLegibility;
+  font-variation-settings: 'wght' 700;
+}
+
+.handwritten-normal {
+  font-family: 'Kalam', cursive;
+  font-weight: 400;
+  letter-spacing: 0.025em;
+  line-height: 1.4;
+  text-rendering: optimizeLegibility;
+  font-variation-settings: 'wght' 400;
+}
+
+.handwritten-bold {
+  font-family: 'Kalam', cursive;
+  font-weight: 700;
+  letter-spacing: 0.025em;
+  line-height: 1.3;
+  text-rendering: optimizeLegibility;
+  font-variation-settings: 'wght' 700;
+  text-shadow: 
+    0 1px 1px rgba(0, 0, 0, 0.1),
+    1px 0 0 rgba(0, 0, 0, 0.05);
+}
+
+.handwritten-light {
+  font-family: 'Kalam', cursive;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  font-variation-settings: 'wght' 300;
+}
+
+/* =================================================================
+   SISTEMA DE COLORES DE TINTA - TODOS LOS TEMAS
+   ================================================================= */
+
+.ink-blue {
+  color: var(--current-text-primary);
+  text-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.1),
+    1px 0 1px rgba(0, 0, 0, 0.05);
+  filter: contrast(1.1);
+}
+
+.ink-blue-light {
+  color: var(--current-text-secondary);
+  text-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.08);
+  filter: contrast(1.1);
+}
+
+.ink-green {
+  color: var(--current-color-accent);
+  text-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.15);
+  filter: contrast(1.15);
+}
+
+.ink-green-dramatic {
+  color: var(--current-color-accent);
+  text-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    2px 0 2px rgba(0, 0, 0, 0.1),
+    0 0 8px var(--current-color-accent);
+  filter: contrast(1.2) brightness(1.1);
+}
+
+/* =================================================================
+   FONDOS Y SUPERFICIES
+   ================================================================= */
+
+.notebook-background {
+  background: var(--current-bg-primary);
+  background-image: 
+    linear-gradient(transparent 30px, var(--current-border-primary) 30px, var(--current-border-primary) 31px, transparent 31px);
+  background-size: 100% 32px;
+  background-position: 0 0;
+  border-radius: 0 !important;
+}
+
+
+.paper-texture {
+  position: relative;
+  border-radius: 0 !important;
+}
+
+.bg-paper {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(40px) saturate(180%) !important;
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.1),
+    0 8px 32px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+/* =================================================================
+   BOTONES - SISTEMA COMPLETO TODOS LOS TEMAS
+   ================================================================= */
+
+.organic-button {
+  position: relative;
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--current-border-primary);
+  text-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.3),
+    1px 0 1px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 48px;
+  min-width: 48px;
+  overflow: hidden;
+}
+
+.organic-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.organic-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.15),
+    0 4px 10px rgba(0, 0, 0, 0.1);
+  border-color: var(--current-border-accent);
+}
+
+.organic-button:hover::before {
+  opacity: 1.5;
+}
+
+.organic-button:active {
+  transform: translateY(-1px) scale(0.98);
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.2),
+    0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+/* Mapeo de colores Tailwind a variables CSS */
+
+/* Botones primarios */
+.bg-blue-500\/80,
+.bg-blue-500\/90,
+.bg-blue-600,
+.bg-blue-700 {
+  background: #8B4513 !important;
+  color: white !important;
+  font-weight: 600 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+.hover\:bg-blue-600:hover,
+.hover\:bg-blue-600\/90:hover,
+.hover\:bg-blue-700:hover {
+  background: #A0522D !important;
+}
+
+.active\:bg-blue-700:active,
+.active\:bg-blue-700\/90:active,
+.active\:bg-blue-800:active {
+  background: #6B3410 !important;
+}
+
+/* Botones de éxito */
+.bg-green-500\/90,
+.bg-green-600,
+.bg-green-700 {
+  background: #2E7D32 !important;
+  color: white !important;
+  font-weight: 600 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+.hover\:bg-green-600:hover,
+.hover\:bg-green-700:hover {
+  background: #388E3C !important;
+}
+
+.active\:bg-green-700:active,
+.active\:bg-green-800:active {
+  background: #1B5E20 !important;
+}
+
+/* Botones destructivos */
+.bg-red-500\/90,
+.bg-red-600,
+.bg-red-700 {
+  background: #D32F2F !important;
+  color: white !important;
+  font-weight: 600 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+.hover\:bg-red-600:hover,
+.hover\:bg-red-700:hover {
+  background: #E53935 !important;
+}
+
+.active\:bg-red-700:active,
+.active\:bg-red-800:active {
+  background: #B71C1C !important;
+}
+
+/* Botones grises */
+.bg-gray-500\/80,
+.bg-gray-500\/90,
+.bg-gray-600,
+.bg-gray-700 {
+  background: #5D4037 !important;
+  color: white !important;
+  font-weight: 600 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+.hover\:bg-gray-600:hover,
+.hover\:bg-gray-700:hover,
+.hover\:bg-gray-800:hover {
+  background: #6D4C41 !important;
+}
+
+.active\:bg-gray-700:active,
+.active\:bg-gray-800:active,
+.active\:bg-gray-900:active {
+  background: #4E342E !important;
+}
+
+/* Botones especiales - NARANJA CORAL */
+.bg-yellow-500\/90,
+.bg-yellow-600,
+.bg-yellow-700 {
+  background: #FF6B35 !important;
+  color: white !important;
+  font-weight: 600 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+  border: 1px solid #FF6B35 !important;
+}
+
+.hover\:bg-yellow-600:hover,
+.hover\:bg-yellow-700:hover {
+  background: #FF7945 !important;
+  border-color: #FF7945 !important;
+}
+
+.active\:bg-yellow-700:active {
+  background: #E55A2B !important;
+  border-color: #E55A2B !important;
+}
+
+.bg-orange-600\/90 {
+  background: #FF6B35 !important;
+  color: white !important;
+  font-weight: 600 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* CLASES PERSONALIZADAS PARA BOTONES */
+.btn-naranja {
+  background: #FF6B35 !important;
+  color: white !important;
+  font-weight: 600 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+  border: 1px solid #FF6B35 !important;
+}
+
+.btn-naranja:hover {
+  background: #FF7945 !important;
+  border-color: #FF7945 !important;
+}
+
+.btn-naranja:active {
+  background: #E55A2B !important;
+  border-color: #E55A2B !important;
+}
+
+.btn-marron {
+  background: #8B4513 !important;
+  color: white !important;
+  font-weight: 600 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+  border: 1px solid #8B4513 !important;
+}
+
+.btn-marron:hover {
+  background: #A0522D !important;
+  border-color: #A0522D !important;
+}
+
+.btn-marron:active {
+  background: #6B3410 !important;
+  border-color: #6B3410 !important;
+}
+
+.btn-gris {
+  background: #5D4037 !important;
+  color: white !important;
+  font-weight: 600 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+  border: 1px solid #5D4037 !important;
+}
+
+.btn-gris:hover {
+  background: #6D4C41 !important;
+  border-color: #6D4C41 !important;
+}
+
+.btn-gris:active {
+  background: #4E342E !important;
+  border-color: #4E342E !important;
+}
+
+/* =================================================================
+   SUPERFICIES Y CARDS
+   ================================================================= */
+
+.bg-white\/95,
+.bg-white\/90,
+.bg-white\/85 {
+  background: var(--current-bg-surface) !important;
+  border: 1px solid var(--current-border-primary) !important;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    0 4px 16px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(20px) !important;
+}
+
+.card-floating .bg-white\/30,
+.card-floating .bg-white\/25,
+.card-floating .bg-white\/20 {
+  background: var(--current-bg-surface) !important;
+  opacity: 0.9;
+  border: 1px solid var(--current-border-primary) !important;
+  backdrop-filter: blur(16px) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* =================================================================
+   BORDES Y DIVISORES
+   ================================================================= */
+
+.border-blue-200,
+.border-gray-300,
+.border-gray-400 {
+  border-color: var(--current-border-primary) !important;
+}
+
+.border-red-400 {
+  border-color: var(--current-color-destructive) !important;
+}
+
+.bg-gray-400 {
+  background-color: var(--current-border-primary) !important;
+}
+
+/* =================================================================
+   TEXTO Y PLACEHOLDERS
+   ================================================================= */
+
+.text-enhanced {
+  color: var(--current-color-accent);
+  text-shadow: 
+    0 0 2px var(--current-color-accent),
+    0 2px 4px rgba(0, 0, 0, 0.3);
+  font-weight: 600;
+}
+
+.handwritten-input {
+  border-bottom: none;
+  transition: all 0.3s ease;
+  filter: contrast(1.05) brightness(0.98);
+  background: transparent;
+  color: var(--current-text-primary);
+}
+
+.handwritten-input:focus {
+  border-bottom: none;
+  background: transparent;
+  outline: none;
+  color: var(--current-text-primary);
+}
+
+.handwritten-input::placeholder {
+  opacity: 0.5;
+  font-style: italic;
+  color: var(--current-text-muted);
+}
+
+/* =================================================================
+   ANIMACIONES Y EFECTOS
+   ================================================================= */
+
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px) rotate(var(--rotation, 0deg));
+  }
+  50% { 
+    transform: translateY(-3px) rotate(var(--rotation, 0deg));
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { 
+    filter: drop-shadow(0 0 5px var(--current-color-accent));
+  }
+  50% { 
+    filter: drop-shadow(0 0 20px var(--current-color-accent));
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s linear infinite;
+}
+
+/* =================================================================
+   NAVEGACIÓN Y MODALES
+   ================================================================= */
+
+.mobile-nav-header {
+  background: var(--current-bg-surface);
+  border-bottom: 1px solid var(--current-border-primary);
+  backdrop-filter: blur(20px);
+}
+
+.native-back-button {
+  background: var(--current-bg-surface);
+  border: 1px solid var(--current-border-primary);
+  color: var(--current-text-primary);
+  min-width: 52px;
+  min-height: 52px;
+  transition: all 0.2s ease;
+}
+
+.native-back-button:hover {
+  background: var(--current-bg-elevated);
+  border-color: var(--current-border-accent);
+  transform: translateY(-1px);
+}
+
+/* =================================================================
+   ESTADOS ESPECIALES - "AL VERDE" Y CRÍTICOS
+   ================================================================= */
+
+.btn-falta-envido {
+  background: var(--current-color-destructive) !important;
+  color: white !important;
+  position: relative;
+  box-shadow: 
+    0 4px 15px var(--current-color-destructive),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--current-color-destructive);
+}
+
+.btn-falta-envido::after {
+  content: '⚡';
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: all 0.3s ease;
+  font-size: 1.2em;
+  color: var(--current-color-accent);
+}
+
+.btn-falta-envido:hover::after {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.2);
+}
+
+/* =================================================================
+   HISTORIAL Y ACCIONES
+   ================================================================= */
+
+.text-green-700 {
+  color: var(--current-color-success) !important;
+}
+
+.text-red-600 {
+  color: var(--current-text-secondary) !important;
+}
+
+.text-red-600.falta-envido {
+  color: var(--current-color-destructive) !important;
+}
+
+.text-yellow-600 {
+  color: #FF6B35 !important;
+}
+
+/* =================================================================
+   AJUSTES DE CONTRASTE PARA TEMA OSCURO
+   ================================================================= */
+
+/* Mejora contraste en botones para tema oscuro */
+.theme-oscuro .organic-button {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.theme-oscuro .organic-button:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+
+/* Ajuste para campos de entrada en tema oscuro */
+.theme-oscuro .handwritten-input {
+  color: var(--oscuro-ink-color) !important;
+}
+
+.theme-oscuro .handwritten-input::placeholder {
+  color: var(--oscuro-text-muted) !important;
+  opacity: 0.7;
+}
+
+/* Mejor legibilidad de textos ink en tema oscuro */
+.theme-oscuro .ink-blue {
+  color: var(--oscuro-text-primary) !important;
+  text-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.5),
+    0 0 8px rgba(255, 255, 255, 0.1);
+}
+
+.theme-oscuro .ink-blue-light {
+  color: var(--oscuro-text-secondary) !important;
+}
+
+/* Ajuste de color para separadores en tema oscuro */
+.theme-oscuro .bg-gray-400 {
+  background-color: var(--oscuro-border-primary) !important;
+  opacity: 0.6;
+}
+
+
+/* Ajuste especial para el botón de tema en tema oscuro */
+.theme-oscuro .bg-white\/30 {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.theme-oscuro .bg-white\/30:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* =================================================================
+   OPTIMIZACIONES MÓVILES
+   ================================================================= */
+
+.touch-manipulation {
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.cursor-pointer.touch-manipulation {
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  transition: opacity 0.2s ease;
+}
+
+.cursor-pointer.touch-manipulation:active {
+  opacity: 0.7;
+  transform: scale(0.98);
+}
+
+@media (hover: hover) {
+  .cursor-pointer.touch-manipulation:hover {
+    background: var(--current-bg-surface);
+    border-radius: 12px;
+  }
+}
+
+/* =================================================================
+   EFECTOS DE PAPEL Y TEXTURAS
+   ================================================================= */
+
+.organic-text {
+  filter: contrast(1.1) brightness(0.95);
+  text-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.1),
+    1px 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.score-primary {
+  position: relative;
+  filter: drop-shadow(0 4px 12px var(--current-color-accent));
+}
+
+.handwritten-natural {
+  font-family: 'Caveat', cursive;
+  font-variation-settings: 'wght' 400;
+  text-rendering: optimizeLegibility;
+  text-shadow: 
+    0 0 1px currentColor,
+    0.5px 0.5px 0 rgba(0, 0, 0, 0.1),
+    1px 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* =================================================================
+   RESPONSIVE Y ACCESIBILIDAD
+   ================================================================= */
+
+/* Prevenir zoom en inputs en iOS */
+input, textarea, select {
+  font-size: 16px !important;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Manejo de teclado virtual */
+@media screen and (max-height: 600px) {
+  .mobile-viewport {
+    height: 100vh;
+    min-height: auto;
+  }
+  
+  .keyboard-active {
+    height: calc(100vh - 300px);
+    overflow-y: auto;
+  }
+}
+
+/* Prevenir scroll horizontal */
+body, html {
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Mejorar el tap en iOS */
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Optimizar fuentes para mobile */
+@media (max-width: 768px) {
+  body {
+    -webkit-text-size-adjust: 100%;
+    font-size: 16px;
+  }
+}
+
+/* Animaciones reducidas para accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  *, 
+  *::before, 
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* =================================================================
+   OVERRIDES ESPECÍFICOS PARA CASOS EDGE
+   ================================================================= */
+
+/* Modal overlays - GLASSMORPHISM TRANSPARENTE */
+.modal-backdrop-premium {
+  background: rgba(0, 0, 0, 0.15) !important;
+  backdrop-filter: blur(20px) !important;
+  z-index: 1000 !important;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { 
+    opacity: 0;
+    transform: scale(0.8) rotate(-1deg);
+  }
+  to { 
+    opacity: 1;
+    transform: scale(1) rotate(-1deg);
+  }
+}
+
+/* Elementos flotantes - GLASSMORPHISM PURO */
+.card-floating {
+  transform: translateZ(10px);
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  backdrop-filter: blur(60px) saturate(200%) !important;
+  box-shadow: 
+    0 30px 60px rgba(0, 0, 0, 0.08),
+    0 15px 30px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+  position: relative;
+  z-index: 1001;
+}
+
+/* Texto en modales glassmorphism - ALTA LEGIBILIDAD */
+.card-floating .ink-blue,
+.card-floating h1,
+.card-floating h2,
+.card-floating p,
+.card-floating span {
+  color: var(--current-text-primary) !important;
+  text-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.3),
+    0 0 10px rgba(255, 255, 255, 0.8) !important;
+  font-weight: 600 !important;
+}
+
+/* Botones en modales glassmorphism */
+.card-floating .organic-button {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  backdrop-filter: blur(20px) !important;
+  color: var(--current-text-primary) !important;
+  font-weight: 700 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) !important;
+}
+
+.card-floating .organic-button:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  transform: translateY(-3px) !important;
+}
+
+/* Botones de colores específicos en modales glassmorphism */
+.card-floating .btn-falta-envido {
+  background: rgba(220, 38, 38, 0.3) !important;
+  border: 1px solid rgba(220, 38, 38, 0.6) !important;
+  backdrop-filter: blur(20px) !important;
+  color: white !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7) !important;
+}
+
+.card-floating .btn-falta-envido:hover {
+  background: rgba(220, 38, 38, 0.4) !important;
+  border-color: rgba(220, 38, 38, 0.8) !important;
+}
+
+/* Botones primarios en modales glassmorphism */
+.card-floating .bg-blue-500\/90,
+.card-floating .bg-blue-600,
+.card-floating .bg-blue-700 {
+  background: rgba(var(--current-color-primary), 0.3) !important;
+  border: 1px solid rgba(var(--current-color-primary), 0.6) !important;
+  backdrop-filter: blur(20px) !important;
+  color: white !important;
+}
+
+/* Botones grises en modales glassmorphism */
+.card-floating .bg-gray-600,
+.card-floating .bg-gray-700,
+.card-floating .bg-gray-800 {
+  background: rgba(107, 114, 128, 0.3) !important;
+  border: 1px solid rgba(107, 114, 128, 0.6) !important;
+  backdrop-filter: blur(20px) !important;
+  color: white !important;
+}
+
+/* Safe areas para móvil */
+.mb-safe {
+  margin-bottom: 16px;
+}
+
+.pb-safe {
+  padding-bottom: 16px;
+}
+
+/* OVERRIDE FINAL PARA BOTONES ESPECÍFICOS */
+button[style*="backgroundColor: #FF6B35"] {
+  background-color: #FF6B35 !important;
+  background: #FF6B35 !important;
+}
+
+button[style*="backgroundColor: #5D4037"] {
+  background-color: #5D4037 !important;
+  background: #5D4037 !important;
+}
+
+/* =================================================================
+   FIN DEL SISTEMA DE PALETAS COMPLETO
+   ================================================================= */
