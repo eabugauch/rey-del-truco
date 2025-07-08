@@ -832,11 +832,7 @@
 }
 
 /* =================================================================
-   LAYOUT CINEMATOGRÁFICO REY DEL TRUCO - ANOTADOR PRINCIPAL
-   Sistema Premium con Efectos Dorados y Ornamentales
-   ================================================================= */
-
-/* 1. CONTENEDOR PRINCIPAL CINEMATOGRÁFICO */
+   SISTEMA DE PALETAS COMPLETO - ANOTADOR DE TRUCO
 .rey-cinematic-container {
   background: linear-gradient(135deg, 
     #0a0a0a 0%, 

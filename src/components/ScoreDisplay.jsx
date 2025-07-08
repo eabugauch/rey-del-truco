@@ -4,7 +4,7 @@ const ScoreDisplay = ({ puntos, puntosTotales = 30 }) => {
   
   const renderCuadradito = (puntosEnCuadradito, key) => {
     if (puntosEnCuadradito === 0) {
-      return <div key={key} className="w-11 h-11 md:w-13 md:h-13"></div>;
+      return <div key={key} className="w-11 h-11 sm:w-12 sm:h-12 md:w-13 md:h-13 lg:w-14 lg:h-14 xl:w-16 xl:h-16"></div>;
     }
 
     const esCompleto = puntosEnCuadradito === 5;
@@ -21,12 +21,12 @@ const ScoreDisplay = ({ puntos, puntosTotales = 30 }) => {
     }
     
     const containerClass = alArco 
-      ? "w-11 h-11 md:w-13 md:h-13 animate-pulse drop-shadow-lg" 
-      : "w-11 h-11 md:w-13 md:h-13";
+      ? "w-11 h-11 sm:w-12 sm:h-12 md:w-13 md:h-13 lg:w-14 lg:h-14 xl:w-16 xl:h-16 animate-pulse drop-shadow-lg" 
+      : "w-11 h-11 sm:w-12 sm:h-12 md:w-13 md:h-13 lg:w-14 lg:h-14 xl:w-16 xl:h-16";
     
     return (
       <div key={key} className={containerClass}>
-        <svg width="44" height="44" viewBox="0 0 64 64" className="w-11 h-11 md:w-13 md:h-13">
+        <svg width="44" height="44" viewBox="0 0 64 64" className="w-11 h-11 sm:w-12 sm:h-12 md:w-13 md:h-13 lg:w-14 lg:h-14 xl:w-16 xl:h-16">
           <defs>
             <filter id="roughPaper">
               <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="5" result="noise" seed="1" />
@@ -83,7 +83,7 @@ const ScoreDisplay = ({ puntos, puntosTotales = 30 }) => {
         } else if (i === cuadradosCompletos && puntosSueltos > 0) {
           elementos.push(renderCuadradito(puntosSueltos, `parcial-${i}`));
         } else {
-          elementos.push(<div key={`vacio-${i}`} className="w-11 h-11 md:w-13 md:h-13"></div>);
+          elementos.push(<div key={`vacio-${i}`} className="w-11 h-11 sm:w-12 sm:h-12 md:w-13 md:h-13 lg:w-14 lg:h-14 xl:w-16 xl:h-16"></div>);
         }
       }
       
@@ -91,14 +91,14 @@ const ScoreDisplay = ({ puntos, puntosTotales = 30 }) => {
     };
 
     return (
-      <div className="relative flex flex-col items-center h-full py-2">
+      <div className="relative flex flex-col items-center h-full responsive-padding">
         {/* Sección buenas (arriba) */}
-        <div className="flex flex-col items-center space-y-0.5 mb-2">
+        <div className="flex flex-col items-center responsive-gap mb-2">
           {renderSeccion(cuadraditosBuenasCompletos, puntosSueltosBuenas, 3)}
         </div>
         
         {/* Línea divisoria */}
-        <div className="w-18 my-2 md:w-22 md:my-2">
+        <div className="w-18 my-2 md:w-22 md:my-2 lg:w-24 lg:my-3 xl:w-28 xl:my-4">
           <svg width="100%" height="7" viewBox="0 0 96 7" className="w-full">
             <defs>
               <filter id="roughLine">
@@ -123,14 +123,14 @@ const ScoreDisplay = ({ puntos, puntosTotales = 30 }) => {
         </div>
         
         {/* Sección malas (abajo) */}
-        <div className="flex flex-col items-center space-y-0.5 mt-2">
+        <div className="flex flex-col items-center responsive-gap mt-2">
           {renderSeccion(cuadraditosMalasCompletos, puntosSueltosMalas, 3)}
         </div>
         
         {/* Indicador "AL VERDE" - ÉPICO Y DRAMÁTICO - ALTURA FIJA */}
-        <div className="h-8 flex items-center justify-center mt-2">
+        <div className="h-8 sm:h-10 md:h-12 lg:h-14 flex items-center justify-center mt-2">
           {puntos === puntosTotales - 1 && (
-            <span className="text-sm ink-green-dramatic animate-pulse animate-bounce transform rotate-1 handwritten-bold organic-text drop-shadow-lg">
+            <span className="fluid-text-sm ink-green-dramatic animate-pulse animate-bounce transform rotate-1 handwritten-bold organic-text drop-shadow-lg high-dpi-text">
               ¡AL VERDE!
             </span>
           )}

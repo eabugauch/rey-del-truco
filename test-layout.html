@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Layout Rey del Truco</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap');
+        
+        :root {
+            --rey-gold-bright: #F8E71C;
+            --rey-gold-main: #D4AF37;
+            --rey-gold-dark: #B8860B;
+            --rey-shadow-gold: rgba(248, 231, 28, 0.5);
+            --rey-glow-gold: rgba(255, 215, 0, 0.8);
+            --rey-brown-rich: #3E2723;
+            --rey-brown-deep: #1F1611;
+            --rey-bg-elevated: #2A1F1A;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Cinzel Decorative', serif;
+        }
+        
+        .rey-cinematic-container {
+            background: linear-gradient(135deg, 
+                #0a0a0a 0%, 
+                #1a1611 20%, 
+                #2a1f1a 40%, 
+                #1a1611 60%, 
+                #0a0a0a 100%);
+            background-size: 300% 300%;
+            animation: cinematic-bg 20s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        @keyframes cinematic-bg {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .rey-premium-card {
+            background: linear-gradient(145deg, 
+                rgba(42, 26, 15, 0.6) 0%, 
+                rgba(26, 22, 17, 0.8) 30%, 
+                rgba(31, 22, 17, 0.9) 70%, 
+                rgba(42, 26, 15, 0.6) 100%);
+            border: 3px solid var(--rey-gold-dark);
+            backdrop-filter: blur(20px);
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.7),
+                inset 0 1px 0 rgba(212, 175, 55, 0.3),
+                inset 0 -1px 0 rgba(184, 134, 11, 0.2),
+                0 0 40px rgba(248, 231, 28, 0.15);
+            position: relative;
+            overflow: hidden;
+            padding: 2rem;
+            margin: 2rem;
+            max-width: 800px;
+            width: 90%;
+        }
+        
+        .rey-player-name-input {
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid var(--rey-gold-dark);
+            color: var(--rey-gold-bright);
+            font-family: 'Cinzel Decorative', serif;
+            font-weight: 700;
+            font-size: 2.5rem;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            outline: none;
+            width: 100%;
+            text-shadow: 
+                2px 2px 0px var(--rey-brown-deep),
+                4px 4px 8px rgba(0, 0, 0, 0.8),
+                0 0 20px rgba(212, 175, 55, 0.4);
+        }
+        
+        .rey-score-number {
+            font-family: 'Cinzel Decorative', serif;
+            font-weight: 900;
+            font-size: 3rem;
+            color: var(--rey-gold-bright);
+            text-align: center;
+            text-shadow: 
+                3px 3px 0px var(--rey-brown-deep),
+                6px 6px 12px rgba(0, 0, 0, 0.9),
+                0 0 30px rgba(212, 175, 55, 0.6);
+            transform: rotate(-1deg);
+            animation: score-pulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes score-pulse {
+            0%, 100% { 
+                text-shadow: 
+                    3px 3px 0px var(--rey-brown-deep),
+                    6px 6px 12px rgba(0, 0, 0, 0.9),
+                    0 0 30px rgba(212, 175, 55, 0.6);
+            }
+            50% { 
+                text-shadow: 
+                    3px 3px 0px var(--rey-brown-deep),
+                    6px 6px 12px rgba(0, 0, 0, 0.9),
+                    0 0 40px rgba(212, 175, 55, 0.8),
+                    0 0 80px rgba(248, 231, 28, 0.4);
+            }
+        }
+        
+        .test-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .test-names {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            gap: 2rem;
+        }
+        
+        .test-scores {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            gap: 2rem;
+        }
+        
+        h1 {
+            color: var(--rey-gold-bright);
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-shadow: 
+                2px 2px 0px var(--rey-brown-deep),
+                4px 4px 8px rgba(0, 0, 0, 0.8),
+                0 0 20px rgba(212, 175, 55, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="rey-cinematic-container">
+        <div class="rey-premium-card">
+            <h1>ANOTADOR DE TRUCO - LAYOUT TEST</h1>
+            
+            <div class="test-layout">
+                <div class="test-names">
+                    <input type="text" class="rey-player-name-input" placeholder="NOSOTROS" value="NOSOTROS">
+                    <input type="text" class="rey-player-name-input" placeholder="ELLOS" value="ELLOS">
+                </div>
+                
+                <div class="test-scores">
+                    <div class="rey-score-number">15</div>
+                    <div class="rey-score-number">12</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

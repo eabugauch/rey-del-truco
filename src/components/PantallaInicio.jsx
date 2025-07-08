@@ -1,7 +1,7 @@
 // src/components/PantallaInicio.jsx
 import { useState } from 'react';
 
-const PantallaInicio = ({ onIniciarPartida, onContinuarPartida, haySavedGame, temaActual, setTemaActual }) => {
+const PantallaInicio = ({ onIniciarPartida, onContinuarPartida, haySavedGame }) => {
   const [modoSeleccionado, setModoSeleccionado] = useState(null); // null | 'rapido' | 'personalizado'
   const [configuracion, setConfiguracion] = useState({
     jugador1: 'Nosotros',
@@ -22,287 +22,211 @@ const PantallaInicio = ({ onIniciarPartida, onContinuarPartida, haySavedGame, te
   };
 
   const renderModoRapido = () => (
-    <div className="animate-scaleIn">
-      <div className="text-center mb-8">
-        <div className="text-6xl mb-4">⚡</div>
-        <h2 className="text-3xl handwritten-natural ink-blue mb-4 transform rotate-1">
-          Inicio Rápido
-        </h2>
-        <p className="text-lg handwritten-normal ink-blue opacity-80">
-          Partida tradicional a 30 puntos
-        </p>
-      </div>
+    <div className="rey-premium-layout">
+      <div className="rey-premium-container form-container">
+        {/* Header Premium con Corona */}
+        <div className="rey-premium-header-compact">
+          <img 
+            src={require('../styles/assets/images/corona.png')} 
+            alt="Corona" 
+            className="rey-premium-corona-small"
+          />
+          <h2 className="rey-premium-title-secondary">
+            BATALLA <span className="text-golden">RELÁMPAGO</span>
+          </h2>
+          <p className="rey-premium-subtitle">
+            Partida clásica a 30 puntos para verdaderos guerreros
+          </p>
+        </div>
 
-      <div className="space-y-4 mb-8">
-        <div className="bg-white/30 backdrop-blur-sm rounded-xl p-4 border border-blue-200/30">
-          <div className="flex justify-between items-center">
-            <span className="handwritten-bold ink-blue">Jugadores:</span>
-            <span className="handwritten-normal">Nosotros vs Ellos</span>
+        <div className="space-y-4 mb-8">
+          <div className="rey-premium-info-card">
+            <div className="flex justify-between items-center">
+              <span className="rey-premium-label">Jugadores:</span>
+              <span className="rey-premium-value">Nosotros vs Ellos</span>
+            </div>
+          </div>
+          <div className="rey-premium-info-card">
+            <div className="flex justify-between items-center">
+              <span className="rey-premium-label">Puntos:</span>
+              <span className="rey-premium-value">30 puntos</span>
+            </div>
+          </div>
+          <div className="rey-premium-info-card">
+            <div className="flex justify-between items-center">
+              <span className="rey-premium-label">Malas:</span>
+              <span className="rey-premium-value">0-15 puntos</span>
+            </div>
+          </div>
+          <div className="rey-premium-info-card">
+            <div className="flex justify-between items-center">
+              <span className="rey-premium-label">Buenas:</span>
+              <span className="rey-premium-value">16-30 puntos</span>
+            </div>
           </div>
         </div>
-        <div className="bg-white/30 backdrop-blur-sm rounded-xl p-4 border border-blue-200/30">
-          <div className="flex justify-between items-center">
-            <span className="handwritten-bold ink-blue">Puntos:</span>
-            <span className="handwritten-normal">30 puntos</span>
-          </div>
-        </div>
-        <div className="bg-white/30 backdrop-blur-sm rounded-xl p-4 border border-blue-200/30">
-          <div className="flex justify-between items-center">
-            <span className="handwritten-bold ink-blue">Malas:</span>
-            <span className="handwritten-normal">0-15 puntos</span>
-          </div>
-        </div>
-        <div className="bg-white/30 backdrop-blur-sm rounded-xl p-4 border border-blue-200/30">
-          <div className="flex justify-between items-center">
-            <span className="handwritten-bold ink-blue">Buenas:</span>
-            <span className="handwritten-normal">16-30 puntos</span>
-          </div>
-        </div>
-      </div>
 
-      <div className="flex gap-3">
-        <button
-          onClick={() => setModoSeleccionado(null)}
-          className="flex-1 py-3 px-4 rounded-lg transition-all duration-150 transform -rotate-0.5 handwritten-bold organic-button touch-manipulation"
-          style={{
-            backgroundColor: '#5D4037',
-            color: 'white',
-            fontWeight: '600',
-            textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)',
-            border: '1px solid #5D4037'
-          }}
-        >
-          ← Volver
-        </button>
-        <button
-          onClick={iniciarRapido}
-          className="flex-2 py-3 px-6 rounded-lg transition-all duration-150 transform rotate-0.5 handwritten-bold organic-button touch-manipulation"
-          style={{
-            backgroundColor: '#FF6B35',
-            color: 'white',
-            fontWeight: '600',
-            textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)',
-            border: '1px solid #FF6B35'
-          }}
-        >
-          ¡A Jugar! 🎮
-        </button>
+        <div className="rey-premium-form-buttons">
+          <button
+            onClick={() => setModoSeleccionado(null)}
+            className="rey-premium-button rey-premium-button-secondary flex-1"
+          >
+            ← VOLVER
+          </button>
+          <button
+            onClick={iniciarRapido}
+            className="rey-premium-button rey-premium-button-primary flex-2"
+          >
+            ¡A JUGAR! 🎮
+          </button>
+        </div>
       </div>
     </div>
   );
 
   const renderModoPersonalizado = () => (
-    <div className="animate-scaleIn">
-      <div className="text-center mb-8">
-        <div className="text-6xl mb-4">⚙️</div>
-        <h2 className="text-3xl handwritten-natural ink-blue mb-4 transform -rotate-1">
-          Modo Personalizado
-        </h2>
-        <p className="text-lg handwritten-normal ink-blue opacity-80">
-          Configurá tu partida ideal
-        </p>
-      </div>
+    <div className="rey-premium-layout">
+      <div className="rey-premium-container form-container">
+        {/* Header Compacto */}
+        <div className="rey-premium-header-minimal">
+          <img 
+            src={require('../styles/assets/images/corona.png')} 
+            alt="Corona" 
+            className="rey-premium-corona-top"
+          />
+          <h2 className="rey-premium-title-compact">
+            CONFIGURÁ TUS <span className="text-golden">EQUIPOS</span>
+          </h2>
+        </div>
 
-      <div className="space-y-6 mb-8">
-        {/* Nombres de jugadores */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-4">
-            <label className="text-base font-bold handwritten-bold ink-blue transform rotate-0.5 flex-shrink-0 w-20">
-              Jugador 1
-            </label>
+        <div className="rey-premium-form-content">
+          {/* Equipos con VS centrado */}
+          <div className="rey-premium-teams-container">
             <input
               type="text"
               value={configuracion.jugador1}
               onChange={(e) => setConfiguracion({...configuracion, jugador1: e.target.value})}
-              className="flex-1 text-lg handwritten-input handwritten-normal ink-blue bg-transparent border-none border-b-2 border-blue-300 focus:border-blue-500 outline-none py-2 px-1 transform rotate-0.5"
+              className="rey-premium-input-compact"
               maxLength={15}
-              placeholder="Nosotros"
+              placeholder="Tu equipo"
             />
-          </div>
-          <div className="flex items-center gap-4">
-            <label className="text-base font-bold handwritten-bold ink-blue transform -rotate-0.5 flex-shrink-0 w-20">
-              Jugador 2
-            </label>
+            
+            <div className="rey-premium-vs-badge">VS</div>
+            
             <input
               type="text"
               value={configuracion.jugador2}
               onChange={(e) => setConfiguracion({...configuracion, jugador2: e.target.value})}
-              className="flex-1 text-lg handwritten-input handwritten-normal ink-blue bg-transparent border-none border-b-2 border-blue-300 focus:border-blue-500 outline-none py-2 px-1 transform -rotate-0.5"
+              className="rey-premium-input-compact"
               maxLength={15}
-              placeholder="Ellos"
+              placeholder="Rivales"
             />
           </div>
-        </div>
 
-        {/* Puntos totales */}
-        <div>
-          <label className="block text-sm font-bold handwritten-bold ink-blue mb-3 transform rotate-0.5">
-            Puntos de la partida:
-          </label>
-          <div className="grid grid-cols-3 gap-3">
-            {[16, 24, 30].map(puntos => (
-              <button
-                key={puntos}
-                onClick={() => setConfiguracion({...configuracion, puntosTotales: puntos})}
-                className={`py-3 px-4 rounded-lg transition-all duration-150 transform handwritten-bold organic-button touch-manipulation ${
-                  configuracion.puntosTotales === puntos
-                    ? 'scale-105 rotate-1'
-                    : 'bg-white/30 hover:bg-white/40 ink-blue rotate-0.5'
-                }`}
-                style={configuracion.puntosTotales === puntos ? {
-                  backgroundColor: '#FF6B35',
-                  color: 'white',
-                  fontWeight: '600',
-                  textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)',
-                  border: '1px solid #FF6B35'
-                } : {}}
-              >
-                <div className="text-lg">{puntos}</div>
-              </button>
-            ))}
+          {/* Selector de puntos compacto */}
+          <div className="rey-premium-points-selector">
+            <h3 className="points-title-styled">¿A <span className="text-golden">CUÁNTOS</span> JUGAMOS?</h3>
+            <div className="points-options">
+              {[
+                { value: 16, icon: '⚡', label: 'RÁPIDA' },
+                { value: 24, icon: '⚔️', label: 'CLÁSICA' },
+                { value: 30, icon: '🏆', label: 'ÉPICA' }
+              ].map(option => (
+                <button
+                  key={option.value}
+                  onClick={() => setConfiguracion({...configuracion, puntosTotales: option.value})}
+                  className={`point-option ${configuracion.puntosTotales === option.value ? 'selected' : ''}`}
+                >
+                  <span className="point-value">{option.value}</span>
+                  <span className="point-icon">{option.icon}</span>
+                  <span className="point-label">{option.label}</span>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="flex gap-3">
-        <button
-          onClick={() => setModoSeleccionado(null)}
-          className="flex-1 py-3 px-4 rounded-lg transition-all duration-150 transform -rotate-0.5 handwritten-bold organic-button touch-manipulation"
-          style={{
-            backgroundColor: '#5D4037',
-            color: 'white',
-            fontWeight: '600',
-            textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)',
-            border: '1px solid #5D4037'
-          }}
-        >
-          ← Volver
-        </button>
-        <button
-          onClick={iniciarPersonalizado}
-          className="flex-2 py-3 px-6 rounded-lg transition-all duration-150 transform rotate-0.5 handwritten-bold organic-button touch-manipulation"
-          style={{
-            backgroundColor: '#FF6B35',
-            color: 'white',
-            fontWeight: '600',
-            textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)',
-            border: '1px solid #FF6B35'
-          }}
-        >
-          Iniciar Partida 🚀
-        </button>
+        <div className="rey-premium-form-buttons">
+          <button
+            onClick={() => setModoSeleccionado(null)}
+            className="rey-premium-button rey-premium-button-secondary flex-1"
+          >
+            ← VOLVER
+          </button>
+          <button
+            onClick={iniciarPersonalizado}
+            className="rey-premium-button rey-premium-button-primary flex-2"
+          >
+            ¡LARGUEMOS!
+          </button>
+        </div>
       </div>
     </div>
   );
 
+
+
+
   const renderMenuPrincipal = () => (
-    <div className="animate-fadeIn">
-      {/* Header con título y tema */}
-      <div className="text-center mb-8">
-        <h1 className="text-5xl md:text-6xl handwritten-title ink-blue mb-2 transform -rotate-1 animate-float title-hero">
-          Anotador de Truco
+    <div className="rey-premium-layout">
+      <div className="rey-premium-container">
+        
+        {/* Corona Premium */}
+        <img 
+          src={require('../styles/assets/images/corona.png')} 
+          alt="Corona Rey del Truco" 
+          className="rey-premium-corona"
+        />
+        
+        {/* Título Premium con Tilt Warp */}
+        <h1 className="rey-premium-title">
+          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: '0.5rem', marginBottom: '-0.2em' }}>
+            <span style={{ fontSize: '6rem' }}>REY</span>
+            <span style={{ fontSize: '4.2rem' }}>DEL</span>
+          </div>
+          <span style={{ fontSize: '6rem', display: 'block' }}>TRUCO</span>
         </h1>
-        <p className="text-lg handwritten-normal ink-blue opacity-80 transform rotate-0.5">
-          El mejor contador de puntos digital
-        </p>
+        
+        {/* Trono Argentino */}
+        <img 
+          src={require('../styles/assets/images/tronoArg.png')} 
+          alt="Trono Argentino" 
+          className="rey-premium-trono"
+        />
       </div>
 
-      {/* Toggle de tema discreto - esquina superior derecha */}
-      <div className="absolute top-4 right-4">
-        <button
-          onClick={() => {
-            const temas = ['calido', 'oscuro'];
-            const indiceActual = temas.indexOf(temaActual);
-            const siguienteTema = temas[(indiceActual + 1) % temas.length];
-            setTemaActual(siguienteTema);
-          }}
-          className="w-10 h-10 bg-white/15 hover:bg-white/25 active:bg-white/35 backdrop-blur-md border border-white/20 text-lg rounded-full transition-all duration-200 organic-button touch-manipulation flex items-center justify-center opacity-70 hover:opacity-100"
-          title={`Cambiar tema (actual: ${temaActual})`}
-        >
-          {temaActual === 'calido' ? '🌅' : '🌙'}
-        </button>
-      </div>
-
-
-      {/* Botón Continuar Partida (solo si hay partida guardada) */}
-      {haySavedGame && (
-        <div className="mb-6">
+      {/* Botones Premium */}
+      <div className="rey-premium-buttons">
+        {haySavedGame && (
           <button
             onClick={onContinuarPartida}
-            className="w-full py-4 px-6 rounded-xl text-xl transition-all duration-150 transform rotate-0.5 handwritten-bold organic-button touch-manipulation shadow-lg animate-pulse"
-            style={{
-              backgroundColor: '#FF6B35',
-              color: 'white',
-              fontWeight: '600',
-              textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)',
-              border: '1px solid #FF6B35'
-            }}
+            className="rey-premium-button continue-game"
           >
-            <div className="flex items-center justify-center gap-3">
-              <span className="text-2xl">🔄</span>
-              <div>
-                <div>Continuar Partida</div>
-                <div className="text-sm opacity-80">Retomar juego guardado</div>
-              </div>
-            </div>
+            CONTINUAR
           </button>
-        </div>
-      )}
-
-      {/* Botones principales */}
-      <div className="space-y-4">
-        <button
-          onClick={() => setModoSeleccionado('rapido')}
-          className="w-full py-4 px-6 rounded-xl text-xl transition-all duration-150 transform rotate-0.5 handwritten-bold organic-button touch-manipulation shadow-lg"
-          style={{
-            backgroundColor: '#FF6B35',
-            color: 'white',
-            fontWeight: '600',
-            textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)',
-            border: '1px solid #FF6B35'
-          }}
-        >
-          <div className="flex items-center justify-center gap-3">
-            <span className="text-2xl">⚡</span>
-            <div>
-              <div>Inicio Rápido</div>
-              <div className="text-sm opacity-80">Partida tradicional a 30</div>
-            </div>
-          </div>
-        </button>
-
+        )}
+        
         <button
           onClick={() => setModoSeleccionado('personalizado')}
-          className="w-full py-4 px-6 rounded-xl text-xl transition-all duration-150 transform -rotate-0.5 handwritten-bold organic-button touch-manipulation shadow-lg"
-          style={{
-            backgroundColor: '#5D4037',
-            color: 'white',
-            fontWeight: '600',
-            textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)',
-            border: '1px solid #5D4037'
-          }}
+          className="rey-premium-button"
         >
-          <div className="flex items-center justify-center gap-3">
-            <span className="text-2xl">⚙️</span>
-            <div>
-              <div>Modo Personalizado</div>
-              <div className="text-sm opacity-80">Configurá nombres y puntos</div>
-            </div>
-          </div>
+          ANOTADOR
         </button>
       </div>
     </div>
   );
 
   return (
-    <div className={`mobile-viewport notebook-background paper-texture flex items-center justify-center p-4 theme-${temaActual}`}>
-      <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl border-4 border-blue-200 p-8 max-w-md w-full card-floating relative">
-        {modoSeleccionado === 'rapido' && renderModoRapido()}
-        {modoSeleccionado === 'personalizado' && renderModoPersonalizado()}
-        {!modoSeleccionado && renderMenuPrincipal()}
-      </div>
-
-    </div>
+    <>
+      {!modoSeleccionado ? (
+        renderMenuPrincipal()
+      ) : (
+        <>
+          {modoSeleccionado === 'rapido' && renderModoRapido()}
+          {modoSeleccionado === 'personalizado' && renderModoPersonalizado()}
+        </>
+      )}
+    </>
   );
 };
 

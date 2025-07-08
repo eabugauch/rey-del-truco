@@ -1,0 +1,338 @@
+/* ================================================================
+   BUTTON COMPONENT STYLES - REY DEL TRUCO
+   CSS Modules para encapsulación sin conflictos
+   ================================================================ */
+
+/* ================================================================
+   BASE BUTTON STYLES
+   ================================================================ */
+
+.button {
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+  
+  /* Typography Base */
+  font-family: var(--font-ornamental);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  text-decoration: none;
+  
+  /* Borders */
+  border-style: solid;
+  border-radius: var(--radius-none);
+  
+  /* Transitions */
+  transition: all var(--duration-normal) var(--ease-in-out);
+  
+  /* Interaction */
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+  
+  /* Reset */
+  background-image: none;
+  outline: none;
+  
+  /* Transform origin for animations */
+  transform-origin: center;
+}
+
+.button:focus {
+  outline: none;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ================================================================
+   SIZE VARIANTS
+   ================================================================ */
+
+.small {
+  min-height: var(--btn-height-sm);
+  min-width: var(--btn-min-width-sm);
+  padding: var(--padding-btn-sm);
+  font-size: var(--font-size-sm);
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+.medium {
+  min-height: var(--btn-height-md);
+  min-width: var(--btn-min-width-md);
+  padding: var(--padding-btn-md);
+  font-size: var(--font-size-base);
+  letter-spacing: var(--letter-spacing-wider);
+}
+
+.large {
+  min-height: var(--btn-height-lg);
+  min-width: var(--btn-min-width-lg);
+  padding: var(--padding-btn-lg);
+  font-size: var(--font-size-lg);
+  letter-spacing: var(--letter-spacing-wider);
+}
+
+/* ================================================================
+   PRIMARY VARIANT - Dorado "Rey del Truco"
+   ================================================================ */
+
+.primary {
+  background: transparent;
+  background-color: transparent;
+  color: var(--color-primary);
+  border-width: var(--border-width-medium);
+  border-color: var(--border-primary);
+  text-shadow: var(--text-shadow-ornamental);
+  box-shadow: var(--shadow-btn-default);
+}
+
+.primary:hover:not(:disabled) {
+  color: var(--color-primary-light);
+  border-color: var(--border-primary-hover);
+  text-shadow: var(--text-shadow-intense);
+  box-shadow: var(--shadow-btn-hover);
+  transform: var(--transform-btn-hover);
+}
+
+.primary:active:not(:disabled) {
+  color: var(--color-primary-dark);
+  box-shadow: var(--shadow-btn-active);
+  transform: var(--transform-btn-active);
+}
+
+.primary:disabled {
+  color: var(--color-primary-muted);
+  border-color: var(--color-primary-muted);
+  text-shadow: none;
+  box-shadow: none;
+}
+
+/* ================================================================
+   SECONDARY VARIANT - Botón de respaldo/cancelar
+   ================================================================ */
+
+.secondary {
+  background: var(--color-neutral-600);
+  background-color: var(--color-neutral-600);
+  color: var(--color-neutral-100);
+  border-width: var(--border-width-thin);
+  border-color: var(--color-neutral-600);
+  text-shadow: var(--text-shadow-ornamental);
+  box-shadow: var(--shadow-btn-default);
+}
+
+.secondary:hover:not(:disabled) {
+  background: var(--color-neutral-500);
+  background-color: var(--color-neutral-500);
+  border-color: var(--color-neutral-500);
+  transform: var(--transform-btn-hover);
+}
+
+.secondary:active:not(:disabled) {
+  background: var(--color-neutral-700);
+  background-color: var(--color-neutral-700);
+  transform: var(--transform-btn-active);
+}
+
+.secondary:disabled {
+  background: var(--color-neutral-400);
+  background-color: var(--color-neutral-400);
+  color: var(--color-neutral-300);
+  border-color: var(--color-neutral-400);
+  text-shadow: none;
+  box-shadow: none;
+}
+
+/* ================================================================
+   GHOST VARIANT - Transparente con hover sutil
+   ================================================================ */
+
+.ghost {
+  background: transparent;
+  background-color: transparent;
+  color: var(--color-primary);
+  border-width: var(--border-width-thin);
+  border-color: transparent;
+  text-shadow: var(--text-shadow-ornamental);
+  box-shadow: none;
+}
+
+.ghost:hover:not(:disabled) {
+  background: var(--color-bg-overlay);
+  background-color: var(--color-bg-overlay);
+  border-color: var(--border-primary);
+  color: var(--color-primary-light);
+  transform: var(--transform-btn-hover);
+}
+
+.ghost:active:not(:disabled) {
+  color: var(--color-primary-dark);
+  transform: var(--transform-btn-active);
+}
+
+.ghost:disabled {
+  color: var(--color-primary-muted);
+  text-shadow: none;
+}
+
+/* ================================================================
+   DANGER VARIANT - Para acciones destructivas
+   ================================================================ */
+
+.danger {
+  background: transparent;
+  background-color: transparent;
+  color: var(--color-danger);
+  border-width: var(--border-width-medium);
+  border-color: var(--border-danger);
+  text-shadow: var(--text-shadow-ornamental);
+  box-shadow: var(--shadow-btn-default);
+}
+
+.danger:hover:not(:disabled) {
+  color: #FF4569;
+  border-color: rgba(220, 20, 60, 0.6);
+  text-shadow: var(--text-shadow-intense);
+  transform: var(--transform-btn-hover);
+}
+
+.danger:active:not(:disabled) {
+  color: #B8143C;
+  transform: var(--transform-btn-active);
+}
+
+.danger:disabled {
+  color: rgba(220, 20, 60, 0.5);
+  border-color: rgba(220, 20, 60, 0.2);
+  text-shadow: none;
+  box-shadow: none;
+}
+
+/* ================================================================
+   SPECIAL STATES
+   ================================================================ */
+
+.loading {
+  position: relative;
+  pointer-events: none;
+}
+
+.loading::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.loading .buttonContent {
+  opacity: 0;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ================================================================
+   FULL WIDTH MODIFIER
+   ================================================================ */
+
+.fullWidth {
+  width: 100%;
+}
+
+/* ================================================================
+   ORGANIC ROTATION - Estilo "handwritten"
+   ================================================================ */
+
+.organicLight {
+  transform: var(--transform-rotate-light);
+}
+
+.organicHeavy {
+  transform: var(--transform-rotate-heavy);
+}
+
+.organicNegative {
+  transform: rotate(-0.5deg);
+}
+
+/* Mantener rotación en hover */
+.organicLight:hover:not(:disabled) {
+  transform: var(--transform-rotate-light) var(--transform-btn-hover);
+}
+
+.organicHeavy:hover:not(:disabled) {
+  transform: var(--transform-rotate-heavy) var(--transform-btn-hover);
+}
+
+.organicNegative:hover:not(:disabled) {
+  transform: rotate(-0.5deg) var(--transform-btn-hover);
+}
+
+/* ================================================================
+   RESPONSIVE ADJUSTMENTS
+   ================================================================ */
+
+@media (max-width: 768px) {
+  .large {
+    padding: var(--padding-btn-md);
+    font-size: var(--font-size-base);
+    letter-spacing: var(--letter-spacing-wide);
+  }
+  
+  .medium {
+    padding: var(--padding-btn-sm);
+    font-size: var(--font-size-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .button {
+    letter-spacing: var(--letter-spacing-normal);
+  }
+  
+  .large {
+    font-size: var(--font-size-sm);
+  }
+}
+
+/* ================================================================
+   SPECIAL EFFECTS
+   ================================================================ */
+
+.pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* Escalado suave para botones seleccionados */
+.selected {
+  transform: scale(1.05) var(--transform-rotate-heavy);
+}
+
+.selected:hover:not(:disabled) {
+  transform: scale(1.05) var(--transform-rotate-heavy) var(--transform-btn-hover);
+}
