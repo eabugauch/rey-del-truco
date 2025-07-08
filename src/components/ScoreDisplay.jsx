@@ -130,7 +130,13 @@ const ScoreDisplay = ({ puntos, puntosTotales = 30 }) => {
         {/* Indicador "AL VERDE" - ÉPICO Y DRAMÁTICO - ALTURA FIJA */}
         <div className="h-8 sm:h-10 md:h-12 lg:h-14 flex items-center justify-center mt-2">
           {puntos === puntosTotales - 1 && (
-            <span className="fluid-text-sm ink-green-dramatic animate-pulse animate-bounce transform rotate-1 handwritten-bold organic-text drop-shadow-lg high-dpi-text">
+            <span className="fluid-text-sm animate-pulse transform rotate-1 drop-shadow-lg high-dpi-text" 
+                  style={{ 
+                    fontFamily: 'Tilt Warp, cursive', 
+                    color: '#F5DEB3',
+                    fontWeight: 'bold',
+                    textShadow: '0 0 10px rgba(245, 222, 179, 0.5)'
+                  }}>
               ¡AL VERDE!
             </span>
           )}

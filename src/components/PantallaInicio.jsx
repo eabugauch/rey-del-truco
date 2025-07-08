@@ -169,49 +169,52 @@ const PantallaInicio = ({ onIniciarPartida, onContinuarPartida, haySavedGame }) 
 
   const renderMenuPrincipal = () => (
     <div className="rey-premium-layout">
-      <div className="rey-premium-container">
+      <div className={`rey-premium-container ${haySavedGame ? 'has-continue-button' : ''}`}>
         
-        {/* Corona Premium */}
-        <img 
-          src={require('../styles/assets/images/corona.png')} 
-          alt="Corona Rey del Truco" 
-          className="rey-premium-corona"
-        />
-        
-        {/* Título Premium con Tilt Warp */}
-        <h1 className="rey-premium-title">
-          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: '0.5rem', marginBottom: '-0.2em' }}>
-            <span style={{ fontSize: '6rem' }}>REY</span>
-            <span style={{ fontSize: '4.2rem' }}>DEL</span>
-          </div>
-          <span style={{ fontSize: '6rem', display: 'block' }}>TRUCO</span>
-        </h1>
-        
-        {/* Trono Argentino */}
-        <img 
-          src={require('../styles/assets/images/tronoArg.png')} 
-          alt="Trono Argentino" 
-          className="rey-premium-trono"
-        />
-      </div>
+        {/* Header Section */}
+        <div className="flex flex-col items-center">
+          {/* Corona Premium */}
+          <img 
+            src={require('../styles/assets/images/corona.png')} 
+            alt="Corona Rey del Truco" 
+            className="rey-premium-corona"
+          />
+          
+          {/* Título Premium con Tilt Warp */}
+          <h1 className="rey-premium-title">
+            <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: '0.5rem', marginBottom: '-0.2em' }}>
+              <span style={{ fontSize: '6rem' }}>REY</span>
+              <span style={{ fontSize: '4.2rem' }}>DEL</span>
+            </div>
+            <span style={{ fontSize: '6rem', display: 'block' }}>TRUCO</span>
+          </h1>
+          
+          {/* Trono Argentino */}
+          <img 
+            src={require('../styles/assets/images/tronoArg.png')} 
+            alt="Trono Argentino" 
+            className="rey-premium-trono"
+          />
+        </div>
 
-      {/* Botones Premium */}
-      <div className="rey-premium-buttons">
-        {haySavedGame && (
+        {/* Botones Premium */}
+        <div className={`rey-premium-buttons ${haySavedGame ? 'has-continue' : ''}`}>
+          {haySavedGame && (
+            <button
+              onClick={onContinuarPartida}
+              className="rey-premium-button continue-game"
+            >
+              CONTINUAR
+            </button>
+          )}
+          
           <button
-            onClick={onContinuarPartida}
-            className="rey-premium-button continue-game"
+            onClick={() => setModoSeleccionado('personalizado')}
+            className="rey-premium-button"
           >
-            CONTINUAR
+            ANOTADOR
           </button>
-        )}
-        
-        <button
-          onClick={() => setModoSeleccionado('personalizado')}
-          className="rey-premium-button"
-        >
-          ANOTADOR
-        </button>
+        </div>
       </div>
     </div>
   );
