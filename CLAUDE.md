@@ -49,10 +49,12 @@ npm run build
 - **Tailwind CSS** for utility-first styling with custom configuration
 - **Comprehensive CSS system** in `src/styles/globals.css` with:
   - **"Rey del Truco" cinematographic theme** (primary)
+  - **Bone color (#F5DEB3) system** for score lines and "al verde" states
   - **Ornamental Victorian patterns** with SVG backgrounds
-  - **Premium typography system** (Cinzel Decorative, Fredericka the Great, Rye, Oswald, Playfair Display)
-  - **Dramatic golden color palette** with multiple glow effects
-  - **Advanced button system** with metallic gradients and hover animations
+  - **Premium typography system** (Tilt Warp, Cinzel Decorative, Fredericka the Great, Rye, Oswald, Playfair Display)
+  - **Dramatic golden color palette** with bone accents for visibility
+  - **Advanced button system** with consistent golden gradients
+  - **Throne divisor system** replacing traditional line separators
   - **Golden particle effects** and microinteractions
   - **Responsive design** optimized for all screen sizes from mobile to ultra-wide
   - **High-DPI support** for retina displays
@@ -61,10 +63,11 @@ npm run build
 
 ### Core Functionality
 1. **Flexible Scoring System**: Support for 16, 24, and 30 point games
-2. **Tap-to-Score**: Click anywhere on score areas to add points
+2. **Tap-to-Score**: Click anywhere on score areas to add points (+ buttons removed for cleaner UX)
 3. **Falta Envido**: Proper implementation with point calculation based on game total
 4. **Game History**: Detailed move tracking with timestamps
 5. **Auto-Save**: Automatic game persistence with recovery on app restart
+6. **Streamlined Controls**: Single minus (-) button per player for score correction
 
 ### Premium UI/UX Features
 1. **Cinematographic Theme System**: 
@@ -206,11 +209,13 @@ src/
 
 ## CSS Effect Guidelines
 
-### Golden Color Palette
-- **Primary Gold**: `##D4AF37` (bright highlights)
-- **Secondary Gold**: `#D4AF37` (main elements)
-- **Dark Gold**: `#B8860B` (shadows and depth)
-- **Glow Effects**: Use `--rey-shadow-gold` and `--rey-glow-gold` variables
+### Golden Color Palette & Bone System
+- **Primary Gold**: `#D4A574` (main gradients, buttons)
+- **Secondary Gold**: `#C59660` (gradient accents)
+- **Light Gold Hover**: `#E6C589` (hover states)
+- **Bone Color**: `#F5DEB3` (score lines, "al verde" states, high visibility text)
+- **Dark Text**: `#0a0a0a` (text on golden backgrounds)
+- **Glow Effects**: Use `rgba(212, 165, 116, 0.3-0.6)` for golden shadows
 
 ### Animation Performance
 - Use `transform` and `opacity` for smooth 60fps animations
@@ -222,9 +227,74 @@ src/
 - Apply `responsive-padding` and `responsive-gap` for spacing
 - Implement `landscape-compact` for mobile horizontal orientation
 
+## Latest Design System Updates (v0.1.1)
+
+### Throne Divisor System
+The app now uses the throne image as a central divisor instead of traditional lines:
+
+```css
+/* Throne Divisor - Replaces line separators */
+.rey-premium-throne-divider {
+  width: 140px; /* Desktop */
+  width: 120px; /* Tablet */
+  width: 100px; /* Mobile */
+}
+
+.rey-premium-throne-divider img {
+  width: 110px; /* Desktop */
+  width: 90px;  /* Tablet */
+  width: 75px;  /* Mobile */
+  margin-top: 20px; /* Desktop */
+  margin-top: 15px; /* Tablet */
+  margin-top: 10px; /* Mobile */
+}
+```
+
+### Bone Color System for Visibility
+Score elements use bone color (#F5DEB3) for optimal visibility on dark backgrounds:
+
+```css
+/* CSS Variables for unified theming */
+--current-ink-color: #F5DEB3;     /* Bone color for lines */
+--current-ink-accent: #F5DEB3;    /* Bone color for "al verde" */
+```
+
+### Button Consistency Pattern
+All buttons now follow the same golden gradient system:
+
+```css
+/* Unified button styling */
+.rey-premium-score-button-minus {
+  background: linear-gradient(135deg, #D4A574, #C59660);
+  border: 1px solid #D4A574;
+  color: #0a0a0a;
+}
+
+.rey-premium-score-button-minus:hover {
+  background: linear-gradient(135deg, #E6C589, #D4A574);
+  box-shadow: 0 8px 24px rgba(212, 165, 116, 0.4);
+}
+```
+
+### Layout Architecture Improvements
+- **Three-column layout**: Player 1 | Throne | Player 2
+- **Centered controls**: Each player's controls centered in their section
+- **Streamlined UX**: Removed redundant + buttons (tap-to-score on rayitas area)
+- **Responsive spacing**: Throne divisor width adjusts per breakpoint
+
+### Typography Enhancements
+- **Tilt Warp**: Primary font for titles and "AL VERDE" text
+- **Bone color text**: `#F5DEB3` for high contrast on dark backgrounds
+- **Unified styling**: Consistent font families across all UI elements
+
+### Animation Synchronization
+- **Unified pulse**: `animate-pulse` synchronized across score elements and "AL VERDE" text
+- **Bone color glow**: `rgba(245, 222, 179, 0.5)` for text shadows
+- **Performance optimized**: Hardware-accelerated transforms
+
 ## Version Evolution
 
-### v0.0.1 → v0.1.0 (Current)
+### v0.0.1 → v0.1.0 (Base Implementation)
 - ✅ **Cinematographic "Rey del Truco" theme** with golden effects
 - ✅ **Advanced responsive design** (320px → 1536px+)
 - ✅ **Premium typography system** with 7 ornamental fonts
@@ -234,4 +304,14 @@ src/
 - ✅ **Metallic button gradients** with shine animations
 - ✅ **Epic screen transitions** with 3D effects
 
-The app now features **cinematographic-quality visuals** while maintaining all core Truco functionality, responsive design, and performance optimization.
+### v0.1.0 → v0.1.1 (Latest Updates)
+- ✅ **Throne divisor system** replacing traditional line separators
+- ✅ **Bone color (#F5DEB3) implementation** for optimal visibility
+- ✅ **Unified golden button system** across all interface elements
+- ✅ **Streamlined UX** with single minus buttons (+ buttons removed)
+- ✅ **Three-column responsive layout** with centered controls
+- ✅ **Animation synchronization** for consistent pulse effects
+- ✅ **Typography consistency** with Tilt Warp as primary font
+- ✅ **Color accessibility improvements** for dark background visibility
+
+The app now features **cinematographic-quality visuals** with enhanced usability, optimal color contrast, and a unique throne-based visual hierarchy that reinforces the "Rey del Truco" brand identity.

@@ -22,7 +22,7 @@
 .rey-premium-title {
   font-family: 'Tilt Warp', cursive;
   font-weight: 400;
-  color: #FFFFFF;
+  color: #F5DEB3;
   text-align: center;
   line-height: 0.85;
   letter-spacing: -0.02em;
@@ -59,7 +59,7 @@
 }
 
 .rey-premium-trono {
-  width: 300px;
+  width: 550px;
   height: auto;
   margin-top: 10px;
   filter: 
@@ -770,7 +770,7 @@
   }
   
   .rey-premium-trono {
-    width: 250px;
+    width: 450px;
     margin-top: 5px;
   }
   
@@ -813,7 +813,7 @@
   }
   
   .rey-premium-trono {
-    width: 200px;
+    width: 380px;
   }
   
   .rey-premium-container {
