@@ -6,6 +6,181 @@
 @tailwind utilities;
 
 /* =================================================================
+   FASE 1: ENTRADA CINEMATOGRÁFICA - EPIC INICIO
+   ================================================================= */
+
+/* Secuencia de entrada épica */
+@keyframes fadeInSequence {
+  0% { opacity: 0; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.epic-entrance-sequence {
+  animation: fadeInSequence 3s ease-out;
+}
+
+/* Animación más lenta para debugging */
+@keyframes slowEntrance {
+  0% { opacity: 0; transform: scale(0.8); }
+  50% { opacity: 0.5; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.debug-entrance {
+  animation: slowEntrance 5s ease-out;
+}
+
+/* Corona descendente con rotación */
+@keyframes coronaDescent {
+  0% { 
+    transform: translateY(-200px) rotate(-10deg) scale(0.8);
+    opacity: 0;
+    filter: blur(5px);
+  }
+  50% {
+    transform: translateY(-50px) rotate(-5deg) scale(0.9);
+    opacity: 0.7;
+    filter: blur(2px);
+  }
+  100% { 
+    transform: translateY(0) rotate(0deg) scale(1);
+    opacity: 1;
+    filter: blur(0px);
+  }
+}
+
+.corona-descent {
+  animation: coronaDescent 4s ease-out 0.5s both;
+}
+
+/* Trono emerge desde las sombras */
+@keyframes tronoEmerge {
+  0% { 
+    transform: translateY(100px) scale(0.8);
+    opacity: 0;
+    filter: brightness(0.3) blur(10px);
+  }
+  30% {
+    transform: translateY(50px) scale(0.9);
+    opacity: 0.5;
+    filter: brightness(0.6) blur(5px);
+  }
+  70% {
+    transform: translateY(10px) scale(0.95);
+    opacity: 0.8;
+    filter: brightness(0.8) blur(2px);
+  }
+  100% { 
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    filter: brightness(1) blur(0px);
+  }
+}
+
+.trono-emergence {
+  animation: tronoEmerge 4s ease-out 2s both;
+}
+
+/* Partículas doradas flotantes */
+@keyframes particleFloat {
+  0% { 
+    transform: translateY(100vh) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { 
+    transform: translateY(-100px) translateX(50px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.golden-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, #FFD700, #D4AF37);
+  border-radius: 50%;
+  animation: particleFloat 8s linear infinite;
+}
+
+.golden-particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+.golden-particle:nth-child(2) { left: 20%; animation-delay: 1s; }
+.golden-particle:nth-child(3) { left: 30%; animation-delay: 2s; }
+.golden-particle:nth-child(4) { left: 40%; animation-delay: 3s; }
+.golden-particle:nth-child(5) { left: 50%; animation-delay: 4s; }
+.golden-particle:nth-child(6) { left: 60%; animation-delay: 5s; }
+.golden-particle:nth-child(7) { left: 70%; animation-delay: 6s; }
+.golden-particle:nth-child(8) { left: 80%; animation-delay: 7s; }
+.golden-particle:nth-child(9) { left: 90%; animation-delay: 8s; }
+
+/* Contenedor para partículas */
+.particles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Efectos de entrada escalonados */
+.fade-in-delayed {
+  opacity: 0;
+  animation: fadeInSequence 1s ease-out forwards;
+}
+
+.fade-in-delayed.delay-1 { animation-delay: 0.3s; }
+.fade-in-delayed.delay-2 { animation-delay: 0.6s; }
+.fade-in-delayed.delay-3 { animation-delay: 0.9s; }
+.fade-in-delayed.delay-4 { animation-delay: 1.2s; }
+.fade-in-delayed.delay-5 { animation-delay: 1.5s; }
+
+/* Optimizaciones de performance */
+.epic-entrance-container {
+  position: relative;
+  z-index: 10;
+}
+
+.epic-entrance-layout {
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+}
+
+/* Responsive para efectos */
+@media (max-width: 768px) {
+  .golden-particle {
+    width: 3px;
+    height: 3px;
+  }
+  
+  .corona-descent {
+    animation-duration: 1.5s;
+  }
+  
+  .trono-emergence {
+    animation-duration: 2s;
+  }
+}
+
+/* Reducir movimiento si es preferido */
+@media (prefers-reduced-motion: reduce) {
+  .epic-entrance-sequence,
+  .corona-descent,
+  .trono-emergence,
+  .fade-in-delayed {
+    animation-duration: 0.3s;
+  }
+  
+  .golden-particle {
+    animation: none;
+    opacity: 0.3;
+  }
+}
+
+/* =================================================================
    DISEÑO PREMIUM REY DEL TRUCO - PANTALLA PRINCIPAL
    ================================================================= */
 
@@ -88,10 +263,13 @@
 .rey-premium-buttons {
   position: absolute;
   bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 0.75rem;
   width: 85%;
   max-width: 280px;
@@ -113,7 +291,7 @@
 .rey-premium-container.has-continue-button .rey-premium-buttons {
   position: static;
   transform: none;
-  margin-top: 2rem;
+  margin: 2rem auto 0 auto;
   width: 85%;
   max-width: 280px;
 }
@@ -198,6 +376,8 @@
   border-radius: 12px;
   position: relative;
   overflow: hidden;
+  width: 100%;
+  text-align: center;
 }
 
 .rey-premium-button::before {

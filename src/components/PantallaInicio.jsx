@@ -168,20 +168,27 @@ const PantallaInicio = ({ onIniciarPartida, onContinuarPartida, haySavedGame }) 
 
 
   const renderMenuPrincipal = () => (
-    <div className="rey-premium-layout">
-      <div className={`rey-premium-container ${haySavedGame ? 'has-continue-button' : ''}`}>
+    <div className="rey-premium-layout epic-entrance-layout">
+      {/* Contenedor para partículas doradas */}
+      <div className="particles-container">
+        {Array.from({length: 12}).map((_, i) => (
+          <div key={i} className="golden-particle" />
+        ))}
+      </div>
+      
+      <div className={`rey-premium-container epic-entrance-container ${haySavedGame ? 'has-continue-button' : ''}`}>
         
         {/* Header Section */}
-        <div className="flex flex-col items-center">
-          {/* Corona Premium */}
+        <div className="flex flex-col items-center epic-entrance-sequence">
+          {/* Corona Premium - Desciende desde arriba */}
           <img 
             src={require('../styles/assets/images/corona.png')} 
             alt="Corona Rey del Truco" 
-            className="rey-premium-corona"
+            className="rey-premium-corona corona-descent"
           />
           
-          {/* Título Premium con Tilt Warp */}
-          <h1 className="rey-premium-title">
+          {/* Título Premium con entrada escalonada */}
+          <h1 className="rey-premium-title fade-in-delayed delay-2">
             <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: '0.5rem', marginBottom: '-0.2em' }}>
               <span style={{ fontSize: '6rem' }}>REY</span>
               <span style={{ fontSize: '4.2rem' }}>DEL</span>
@@ -189,16 +196,16 @@ const PantallaInicio = ({ onIniciarPartida, onContinuarPartida, haySavedGame }) 
             <span style={{ fontSize: '6rem', display: 'block' }}>TRUCO</span>
           </h1>
           
-          {/* Trono Argentino */}
+          {/* Trono Argentino - Emerge desde las sombras */}
           <img 
             src={require('../styles/assets/images/tronoArg.png')} 
             alt="Trono Argentino" 
-            className="rey-premium-trono"
+            className="rey-premium-trono trono-emergence"
           />
         </div>
 
-        {/* Botones Premium */}
-        <div className={`rey-premium-buttons ${haySavedGame ? 'has-continue' : ''}`}>
+        {/* Botones Premium - Aparecen al final */}
+        <div className={`rey-premium-buttons fade-in-delayed delay-5 ${haySavedGame ? 'has-continue' : ''}`}>
           {haySavedGame && (
             <button
               onClick={onContinuarPartida}
