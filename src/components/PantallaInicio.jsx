@@ -1,5 +1,5 @@
 // src/components/PantallaInicio.jsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const PantallaInicio = ({ onIniciarPartida, onContinuarPartida, haySavedGame }) => {
   const [modoSeleccionado, setModoSeleccionado] = useState(null); // null | 'rapido' | 'personalizado'
@@ -8,6 +8,7 @@ const PantallaInicio = ({ onIniciarPartida, onContinuarPartida, haySavedGame }) 
     jugador2: 'Ellos',
     puntosTotales: 30
   });
+  
 
   const iniciarRapido = () => {
     onIniciarPartida({
@@ -169,6 +170,9 @@ const PantallaInicio = ({ onIniciarPartida, onContinuarPartida, haySavedGame }) 
 
   const renderMenuPrincipal = () => (
     <div className="rey-premium-layout epic-entrance-layout">
+      {/* 🌫️ FASE 2: Fondo Bokeh con profundidad */}
+      <div className="bokeh-background depth-layer-background"></div>
+      
       {/* Contenedor para partículas doradas */}
       <div className="particles-container">
         {Array.from({length: 12}).map((_, i) => (
@@ -178,49 +182,57 @@ const PantallaInicio = ({ onIniciarPartida, onContinuarPartida, haySavedGame }) 
       
       <div className={`rey-premium-container epic-entrance-container ${haySavedGame ? 'has-continue-button' : ''}`}>
         
-        {/* Header Section */}
+        {/* Header Section con capas 3D */}
         <div className="flex flex-col items-center epic-entrance-sequence">
-          {/* Corona Premium - Desciende desde arriba */}
-          <img 
-            src={require('../styles/assets/images/corona.png')} 
-            alt="Corona Rey del Truco" 
-            className="rey-premium-corona corona-descent"
-          />
+          {/* 🎭 FASE 2: Corona Premium con efectos 3D */}
+          <div className="depth-layer-1">
+            <img 
+              src={require('../styles/assets/images/corona.png')} 
+              alt="Corona Rey del Truco" 
+              className="rey-premium-corona corona-descent focus-sharp gpu-accelerated"
+            />
+          </div>
           
-          {/* Título Premium con entrada escalonada */}
-          <h1 className="rey-premium-title fade-in-delayed delay-2">
-            <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: '0.5rem', marginBottom: '-0.2em' }}>
-              <span style={{ fontSize: '6rem' }}>REY</span>
-              <span style={{ fontSize: '4.2rem' }}>DEL</span>
-            </div>
-            <span style={{ fontSize: '6rem', display: 'block' }}>TRUCO</span>
-          </h1>
+          {/* 🎭 FASE 2: Título Premium con profundidad */}
+          <div className="depth-layer-2">
+            <h1 className="rey-premium-title fade-in-delayed delay-2 focus-sharp">
+              <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: '0.5rem', marginBottom: '-0.2em' }}>
+                <span style={{ fontSize: '6rem' }}>REY</span>
+                <span style={{ fontSize: '4.2rem' }}>DEL</span>
+              </div>
+              <span style={{ fontSize: '6rem', display: 'block' }}>TRUCO</span>
+            </h1>
+          </div>
           
-          {/* Trono Argentino - Emerge desde las sombras */}
-          <img 
-            src={require('../styles/assets/images/tronoArg.png')} 
-            alt="Trono Argentino" 
-            className="rey-premium-trono trono-emergence"
-          />
+          {/* 🎭 FASE 2: Trono Argentino con perspectiva 3D */}
+          <div className="depth-layer-3">
+            <img 
+              src={require('../styles/assets/images/tronoArg.png')} 
+              alt="Trono Argentino" 
+              className="rey-premium-trono trono-emergence focus-medium gpu-accelerated"
+            />
+          </div>
         </div>
 
-        {/* Botones Premium - Aparecen al final */}
-        <div className={`rey-premium-buttons fade-in-delayed delay-5 ${haySavedGame ? 'has-continue' : ''}`}>
-          {haySavedGame && (
+        {/* 🎭 FASE 2: Botones Premium con profundidad */}
+        <div className="depth-layer-1">
+          <div className={`rey-premium-buttons fade-in-delayed delay-5 focus-sharp ${haySavedGame ? 'has-continue' : ''}`}>
+            {haySavedGame && (
+              <button
+                onClick={onContinuarPartida}
+                className="rey-premium-button continue-game"
+              >
+                CONTINUAR
+              </button>
+            )}
+            
             <button
-              onClick={onContinuarPartida}
-              className="rey-premium-button continue-game"
+              onClick={() => setModoSeleccionado('personalizado')}
+              className="rey-premium-button"
             >
-              CONTINUAR
+              ANOTADOR
             </button>
-          )}
-          
-          <button
-            onClick={() => setModoSeleccionado('personalizado')}
-            className="rey-premium-button"
-          >
-            ANOTADOR
-          </button>
+          </div>
         </div>
       </div>
     </div>

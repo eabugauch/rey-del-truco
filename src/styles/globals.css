@@ -192,6 +192,11 @@
   min-height: 100vh;
   overflow: hidden;
   position: relative;
+  
+  /* 🎭 FASE 2: Perspectiva 3D */
+  perspective: 1200px;
+  perspective-origin: center center;
+  transform-style: preserve-3d;
 }
 
 .rey-premium-title {
@@ -216,6 +221,10 @@
   position: relative;
   /* Add bottom padding when continue button is present */
   padding-bottom: 8rem;
+  
+  /* 🎭 FASE 2: Contenedor 3D */
+  transform-style: preserve-3d;
+  z-index: 10;
 }
 
 .rey-premium-container.form-container {
@@ -271,29 +280,29 @@
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;
-  width: 85%;
-  max-width: 280px;
+  width: 90%;
+  max-width: 350px;
   z-index: 5;
   transition: bottom 0.4s ease;
 }
 
 /* Ensure buttons don't overlap throne on smaller screens */
 .rey-premium-buttons.has-continue {
-  bottom: 60px;
+  bottom: 80px;
 }
 
 /* Alternative layout for when continue button exists */
 .rey-premium-container.has-continue-button {
   justify-content: space-between;
-  padding-bottom: 2rem;
+  padding-bottom: 4rem;
 }
 
 .rey-premium-container.has-continue-button .rey-premium-buttons {
   position: static;
   transform: none;
-  margin: 2rem auto 0 auto;
-  width: 85%;
-  max-width: 280px;
+  margin: 2rem auto 2rem auto;
+  width: 90%;
+  max-width: 350px;
 }
 
 /* Ensure throne visibility in landscape mode */
@@ -362,22 +371,23 @@
 }
 
 .rey-premium-button {
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(212, 165, 116, 0.15);
-  color: rgba(212, 165, 116, 0.9);
-  padding: 0.875rem 1.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(212, 165, 116, 0.3);
+  color: rgba(212, 165, 116, 1);
+  padding: 1.2rem 2.5rem;
   font-family: 'Tilt Warp', cursive;
-  font-weight: 400;
-  font-size: 0.95rem;
+  font-weight: 500;
+  font-size: 1.3rem;
   letter-spacing: 0.02em;
   text-transform: none;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(5px);
   border-radius: 12px;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   width: 100%;
   text-align: center;
+  min-width: 160px;
 }
 
 .rey-premium-button::before {
@@ -960,12 +970,12 @@
   }
   
   .rey-premium-buttons {
-    width: 90%;
-    max-width: 320px;
+    width: 95%;
+    max-width: 380px;
   }
   
   .rey-premium-buttons.has-continue {
-    bottom: 80px;
+    bottom: 120px;
   }
   
   .rey-premium-button {
@@ -1001,12 +1011,12 @@
   }
   
   .rey-premium-buttons.has-continue {
-    bottom: 100px;
+    bottom: 120px;
   }
   
   .rey-premium-button {
-    font-size: 1rem;
-    padding: 0.75rem 1.25rem;
+    font-size: 1.1rem;
+    padding: 1rem 1.8rem;
   }
   
   /* Mobile adjustments for compact design */
@@ -1559,6 +1569,9 @@
   --calido-text-muted: #8D6E63;
   --calido-color-primary: #8B4513;
   --calido-color-secondary: #D2B48C;
+  
+  /* 🎭 FASE 2: Variables 3D para efectos de profundidad */
+  --depth-factor: 1;
   --calido-color-accent: #FF6B35;
   --calido-color-success: #2E7D32;
   --calido-color-destructive: #D32F2F;
@@ -5983,6 +5996,92 @@ html {
   
   .rey-premium-entry-time {
     font-size: 0.875rem;
+  }
+}
+
+/* =================================================================
+   🎭 FASE 2: EFECTOS 3D Y PROFUNDIDAD
+   ================================================================= */
+
+
+
+/* 🎭 SISTEMA DE CAPAS DE PROFUNDIDAD */
+.depth-layer-1 {
+  transform: translateZ(100px);
+  z-index: 10;
+}
+
+.depth-layer-2 {
+  transform: translateZ(50px);
+  z-index: 8;
+}
+
+.depth-layer-3 {
+  transform: translateZ(0px);
+  z-index: 6;
+}
+
+.depth-layer-background {
+  transform: translateZ(-50px);
+  z-index: 4;
+  filter: blur(1px);
+  opacity: 0.8;
+}
+
+
+
+/* 🌫️ FONDO BOKEH */
+.bokeh-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at 30% 40%, 
+    rgba(212, 175, 55, 0.1) 0%,
+    transparent 40%
+  ),
+  radial-gradient(
+    circle at 70% 60%, 
+    rgba(255, 215, 0, 0.05) 0%,
+    transparent 30%
+  );
+  filter: blur(8px);
+  z-index: 1;
+}
+
+/* 🎯 CLASES DE ENFOQUE */
+.focus-sharp {
+  filter: blur(0px);
+  z-index: 10;
+}
+
+.focus-medium {
+  filter: blur(1px);
+  z-index: 8;
+}
+
+.focus-soft {
+  filter: blur(3px);
+  z-index: 6;
+}
+
+/* 🔧 OPTIMIZACIONES DE PERFORMANCE */
+.gpu-accelerated {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.contain-layout {
+  contain: layout style paint;
+}
+
+/* 📱 RESPONSIVE 3D */
+@media (max-width: 768px) {
+  .rey-premium-layout {
+    perspective: 800px;
   }
 }
 
