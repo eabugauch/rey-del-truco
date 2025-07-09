@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generador de Iconos Rey del Truco</title>
+</head>
+<body>
+    <canvas id="canvas" width="512" height="512" style="border: 1px solid #ccc;"></canvas>
+    <br><br>
+    <button onclick="generateIcon(180)">Generar 180x180</button>
+    <button onclick="generateIcon(192)">Generar 192x192</button>
+    <button onclick="generateIcon(512)">Generar 512x512</button>
+    <button onclick="generateIcon(152)">Generar 152x152</button>
+    <button onclick="generateIcon(167)">Generar 167x167</button>
+    <button onclick="generateIcon(144)">Generar 144x144</button>
+
+    <script>
+        function drawThrone(canvas, size) {
+            const ctx = canvas.getContext('2d');
+            canvas.width = size;
+            canvas.height = size;
+            
+            // Limpiar canvas
+            ctx.fillStyle = '#0a0a0a';
+            ctx.fillRect(0, 0, size, size);
+            
+            // Escalar según el tamaño
+            const scale = size / 512;
+            ctx.save();
+            ctx.translate(size/2, size/2);
+            ctx.scale(scale, scale);
+            
+            // Colores
+            const gold = '#D4A574';
+            const goldAccent = '#C59660';
+            const brightGold = '#FFD700';
+            
+            // Base del trono
+            ctx.fillStyle = gold;
+            ctx.strokeStyle = goldAccent;
+            ctx.lineWidth = 2;
+            ctx.fillRect(-80, 60, 160, 40);
+            ctx.strokeRect(-80, 60, 160, 40);
+            
+            // Respaldo central
+            ctx.fillRect(-60, -100, 120, 160);
+            ctx.strokeRect(-60, -100, 120, 160);
+            
+            // Brazos del trono
+            ctx.fillRect(-90, 0, 30, 80);
+            ctx.strokeRect(-90, 0, 30, 80);
+            ctx.fillRect(60, 0, 30, 80);
+            ctx.strokeRect(60, 0, 30, 80);
+            
+            // Decoraciones doradas
+            ctx.fillStyle = brightGold;
+            
+            // Círculo superior central
+            ctx.beginPath();
+            ctx.arc(0, -120, 15, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.strokeStyle = gold;
+            ctx.stroke();
+            
+            // Decoraciones laterales
+            ctx.beginPath();
+            ctx.arc(-40, -80, 8, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            ctx.beginPath();
+            ctx.arc(40, -80, 8, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Corona superior
+            ctx.beginPath();
+            ctx.moveTo(0, -140);
+            ctx.lineTo(-10, -130);
+            ctx.lineTo(-5, -125);
+            ctx.lineTo(0, -130);
+            ctx.lineTo(5, -125);
+            ctx.lineTo(10, -130);
+            ctx.closePath();
+            ctx.fill();
+            ctx.strokeStyle = gold;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            
+            // Líneas ornamentales
+            ctx.fillStyle = brightGold;
+            ctx.fillRect(-50, -60, 100, 4);
+            ctx.fillRect(-50, -40, 100, 4);
+            ctx.fillRect(-50, -20, 100, 4);
+            
+            // Sombra dorada
+            ctx.fillStyle = 'rgba(212, 165, 116, 0.3)';
+            ctx.beginPath();
+            ctx.ellipse(0, 120, 100, 20, 0, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            ctx.restore();
+        }
+        
+        function generateIcon(size) {
+            const canvas = document.getElementById('canvas');
+            drawThrone(canvas, size);
+            
+            // Descargar
+            const link = document.createElement('a');
+            link.download = `throne-icon-${size}x${size}.png`;
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+        
+        // Dibujar icono inicial
+        drawThrone(document.getElementById('canvas'), 512);
+    </script>
+</body>
+</html>
