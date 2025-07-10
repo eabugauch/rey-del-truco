@@ -45,14 +45,14 @@
    FASE 1: ENTRADA CINEMATOGRÁFICA - EPIC INICIO
    ================================================================= */
 
-/* Secuencia de entrada épica */
+/* Secuencia de entrada épica - más rápida */
 @keyframes fadeInSequence {
   0% { opacity: 0; transform: scale(0.95); }
   100% { opacity: 1; transform: scale(1); }
 }
 
 .epic-entrance-sequence {
-  animation: fadeInSequence 3s ease-out;
+  animation: fadeInSequence 1.5s ease-out;
 }
 
 /* Animación más lenta para debugging */
@@ -67,32 +67,27 @@
 }
 
 
-/* Trono emerge desde las sombras */
+/* Trono emerge desde las sombras - más rápido y sincronizado */
 @keyframes tronoEmerge {
   0% { 
-    transform: translateY(100px) scale(0.8);
-    opacity: 0;
-    filter: brightness(0.3) blur(10px);
-  }
-  30% {
     transform: translateY(50px) scale(0.9);
-    opacity: 0.5;
-    filter: brightness(0.6) blur(5px);
+    opacity: 0;
+    filter: brightness(0.5) blur(5px);
   }
-  70% {
-    transform: translateY(10px) scale(0.95);
-    opacity: 0.8;
+  50% {
+    transform: translateY(20px) scale(0.95);
+    opacity: 0.7;
     filter: brightness(0.8) blur(2px);
   }
   100% { 
     transform: translateY(0) scale(1);
-    opacity: 1;
+    opacity: 0.98; /* Opacidad final igual que tenía antes */
     filter: brightness(1) blur(0px);
   }
 }
 
 .trono-emergence {
-  animation: tronoEmerge 4s ease-out 2s both;
+  animation: tronoEmerge 1.2s ease-out 0.4s both; /* Mismo delay que el logo (delay-2 = 0.4s) */
 }
 
 /* ✨ SISTEMA DE PARTÍCULAS CINEMATOGRÁFICAS */
@@ -310,17 +305,17 @@
   pointer-events: none;
 }
 
-/* Efectos de entrada escalonados */
+/* Efectos de entrada escalonados - más rápidos */
 .fade-in-delayed {
   opacity: 0;
-  animation: fadeInSequence 1s ease-out forwards;
+  animation: fadeInSequence 0.8s ease-out forwards;
 }
 
-.fade-in-delayed.delay-1 { animation-delay: 0.3s; }
-.fade-in-delayed.delay-2 { animation-delay: 0.6s; }
-.fade-in-delayed.delay-3 { animation-delay: 0.9s; }
-.fade-in-delayed.delay-4 { animation-delay: 1.2s; }
-.fade-in-delayed.delay-5 { animation-delay: 1.5s; }
+.fade-in-delayed.delay-1 { animation-delay: 0.2s; }
+.fade-in-delayed.delay-2 { animation-delay: 0.4s; }
+.fade-in-delayed.delay-3 { animation-delay: 0.6s; }
+.fade-in-delayed.delay-4 { animation-delay: 0.8s; }
+.fade-in-delayed.delay-5 { animation-delay: 1.0s; }
 
 /* Optimizaciones de performance */
 .epic-entrance-container {
@@ -445,13 +440,7 @@
 .logo-rey {
   height: 13.104rem; /* Agrandada 30% más (10.08rem * 1.3) */
   width: auto;
-  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.8))
-          drop-shadow(0 6px 12px rgba(0, 0, 0, 0.6))
-          drop-shadow(0 0 20px rgba(0, 0, 0, 0.4))
-          drop-shadow(0 0 40px rgba(139, 69, 19, 0.3)); /* Sutil resplandor dorado-marrón */
-  background: radial-gradient(ellipse at center, rgba(139, 69, 19, 0.15) 0%, transparent 70%);
-  border-radius: 8px;
-  padding: 0.5rem;
+  /* Filters and background moved to .logo-image base class for consistency */
 }
 
 .logo-del {
@@ -460,26 +449,55 @@
   position: relative;
   left: -2.5rem; /* Mover DEL un poco más hacia la izquierda */
   top: 0.5rem; /* Mover DEL un poco hacia abajo */
-  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.8))
-          drop-shadow(0 6px 12px rgba(0, 0, 0, 0.6))
-          drop-shadow(0 0 20px rgba(0, 0, 0, 0.4))
-          drop-shadow(0 0 35px rgba(101, 67, 33, 0.25)); /* Resplandor más sutil para DEL */
-  background: radial-gradient(ellipse at center, rgba(101, 67, 33, 0.12) 0%, transparent 70%);
-  border-radius: 6px;
-  padding: 0.4rem;
+  /* Filters and background moved to .logo-image base class for consistency */
 }
 
 .logo-truco {
   height: 21.45rem; /* Agrandada 30% más (16.5rem * 1.3) */
   width: auto;
   margin-top: -7rem; /* Bajar TRUCO 0.3rem */
-  filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.9))
-          drop-shadow(0 8px 16px rgba(0, 0, 0, 0.7))
-          drop-shadow(0 0 24px rgba(0, 0, 0, 0.5))
-          drop-shadow(0 0 50px rgba(160, 82, 45, 0.35)); /* Resplandor más intenso para TRUCO */
-  background: radial-gradient(ellipse at center, rgba(160, 82, 45, 0.18) 0%, transparent 75%);
-  border-radius: 10px;
-  padding: 0.6rem;
+  /* Filters and background moved to .logo-image base class for consistency */
+}
+
+/* Logo unificado nuevo - mantiene la altura total del logo de 3 partes */
+.logo-unified {
+  height: 27.5rem; /* Altura total aproximada de las 3 imágenes combinadas */
+  width: auto;
+  max-width: 100%;
+  /* Hereda los filtros y animaciones de .logo-image */
+  opacity: 0;
+  animation: logoUnifiedEntrance 0.8s ease-out 0.1s forwards;
+}
+
+/* Animación específica para el logo unificado */
+@keyframes logoUnifiedEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+    filter: blur(3px);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateY(10px) scale(0.95);
+    filter: blur(1px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* Simplified animation for iOS Safari 17+ C2PA compatibility */
+@keyframes logoUnifiedEntranceIOS {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) translateZ(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+  }
 }
 
 /* 🎭 3D DEPTH EFFECTS FOR EACH LOGO IMAGE - Will be applied after entrance */
@@ -1341,6 +1359,11 @@
     margin-top: -6.3rem; /* Bajar TRUCO 0.3rem para tablet */
   }
   
+  /* Logo unificado para tablet */
+  .logo-unified {
+    height: 22rem; /* Proporcionalmente reducido para tablet */
+  }
+  
   /* Adjust spacing for tablet */
   .rey-premium-logo-line-1 { 
     gap: 0.2rem; 
@@ -1395,6 +1418,11 @@
     margin-top: -5.6rem; /* Bajar TRUCO 0.3rem para mobile */
   }
   
+  /* Logo unificado para mobile */
+  .logo-unified {
+    height: 18rem; /* Proporcionalmente reducido para mobile */
+  }
+  
   /* Adjust spacing for mobile */
   .rey-premium-logo-line-1 { 
     gap: 0.15rem; 
@@ -1405,9 +1433,28 @@
   .logo-image {
     transform: none !important;
     animation: none !important;
-    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.7))
-            drop-shadow(0 3px 6px rgba(0, 0, 0, 0.5))
-            drop-shadow(0 0 15px rgba(0, 0, 0, 0.3));
+    /* SINGLE drop-shadow instead of triple for iOS Safari compatibility */
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6)) !important;
+    /* Disable hardware acceleration to reduce GPU memory pressure */
+    will-change: auto;
+  }
+}
+
+/* iOS Safari specific fixes - Ultra-light filters */
+@supports (-webkit-touch-callout: none) {
+  .logo-image {
+    /* Minimal filter for iOS Safari 17+ compatibility */
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5)) !important;
+    background: none !important;
+    transform: translateZ(0) !important;
+  }
+  
+  /* Specific optimization for unified logo on iOS Safari */
+  .logo-unified {
+    /* Simplify animation for iOS Safari 17+ C2PA compatibility */
+    animation: logoUnifiedEntranceIOS 0.6s ease-out 0.1s forwards !important;
+    will-change: opacity, transform !important;
+    transform: translateZ(0) !important;
   }
   
   /* Corona now uses fluid clamp() - no fixed sizes needed */
