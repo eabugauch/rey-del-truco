@@ -1,5 +1,5 @@
 // src/components/PantallaInicio.jsx
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const PantallaInicio = ({ onIniciarPartida, onContinuarPartida, haySavedGame }) => {
   const [modoSeleccionado, setModoSeleccionado] = useState(null); // null | 'rapido' | 'personalizado'
@@ -8,7 +8,6 @@ const PantallaInicio = ({ onIniciarPartida, onContinuarPartida, haySavedGame }) 
     jugador2: 'Ellos',
     puntosTotales: 30
   });
-  
 
   const iniciarRapido = () => {
     onIniciarPartida({
@@ -25,13 +24,8 @@ const PantallaInicio = ({ onIniciarPartida, onContinuarPartida, haySavedGame }) 
   const renderModoRapido = () => (
     <div className="rey-premium-layout">
       <div className="rey-premium-container form-container">
-        {/* Header Premium con Corona */}
+        {/* Header Premium */}
         <div className="rey-premium-header-compact">
-          <img 
-            src={require('../styles/assets/images/corona.png')} 
-            alt="Corona" 
-            className="rey-premium-corona-small"
-          />
           <h2 className="rey-premium-title-secondary">
             BATALLA <span className="text-golden">RELÁMPAGO</span>
           </h2>
@@ -90,11 +84,6 @@ const PantallaInicio = ({ onIniciarPartida, onContinuarPartida, haySavedGame }) 
       <div className="rey-premium-container form-container">
         {/* Header Compacto */}
         <div className="rey-premium-header-minimal">
-          <img 
-            src={require('../styles/assets/images/corona.png')} 
-            alt="Corona" 
-            className="rey-premium-corona-top"
-          />
           <h2 className="rey-premium-title-compact">
             CONFIGURÁ TUS <span className="text-golden">EQUIPOS</span>
           </h2>
@@ -173,10 +162,26 @@ const PantallaInicio = ({ onIniciarPartida, onContinuarPartida, haySavedGame }) 
       {/* 🌫️ FASE 2: Fondo Bokeh con profundidad */}
       <div className="bokeh-background depth-layer-background"></div>
       
-      {/* Contenedor para partículas doradas */}
+      {/* Contenedor para partículas doradas cinematográficas */}
       <div className="particles-container">
-        {Array.from({length: 12}).map((_, i) => (
-          <div key={i} className="golden-particle" />
+        {/* Partículas grandes - Estrellas principales */}
+        {Array.from({length: 5}).map((_, i) => (
+          <div key={`large-${i}`} className="golden-particle-large" />
+        ))}
+        
+        {/* Partículas medianas - Polvo dorado */}
+        {Array.from({length: 5}).map((_, i) => (
+          <div key={`medium-${i}`} className="golden-particle-medium" />
+        ))}
+        
+        {/* Partículas pequeñas - Sparkles */}
+        {Array.from({length: 5}).map((_, i) => (
+          <div key={`small-${i}`} className="golden-particle-small" />
+        ))}
+        
+        {/* Partículas micro - Ambiente */}
+        {Array.from({length: 5}).map((_, i) => (
+          <div key={`micro-${i}`} className="golden-particle-micro" />
         ))}
       </div>
       
@@ -184,24 +189,29 @@ const PantallaInicio = ({ onIniciarPartida, onContinuarPartida, haySavedGame }) 
         
         {/* Header Section con capas 3D */}
         <div className="flex flex-col items-center epic-entrance-sequence">
-          {/* 🎭 FASE 2: Corona Premium con efectos 3D */}
-          <div className="depth-layer-1">
-            <img 
-              src={require('../styles/assets/images/corona.png')} 
-              alt="Corona Rey del Truco" 
-              className="rey-premium-corona corona-descent focus-sharp gpu-accelerated"
-            />
-          </div>
-          
           {/* 🎭 FASE 2: Título Premium con profundidad */}
           <div className="depth-layer-2">
-            <h1 className="rey-premium-title fade-in-delayed delay-2 focus-sharp">
-              <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: '0.5rem', marginBottom: '-0.2em' }}>
-                <span style={{ fontSize: '6rem' }}>REY</span>
-                <span style={{ fontSize: '4.2rem' }}>DEL</span>
+            <div className="rey-premium-logo-container fade-in-delayed delay-2 focus-sharp">
+              <div className="rey-premium-logo-line-1">
+                <img 
+                  src={require('../styles/assets/images/rey.png')} 
+                  alt="REY" 
+                  className="logo-image logo-rey" 
+                />
+                <img 
+                  src={require('../styles/assets/images/del.png')} 
+                  alt="DEL" 
+                  className="logo-image logo-del" 
+                />
               </div>
-              <span style={{ fontSize: '6rem', display: 'block' }}>TRUCO</span>
-            </h1>
+              <div className="rey-premium-logo-line-2">
+                <img 
+                  src={require('../styles/assets/images/truco.png')} 
+                  alt="TRUCO" 
+                  className="logo-image logo-truco" 
+                />
+              </div>
+            </div>
           </div>
           
           {/* 🎭 FASE 2: Trono Argentino con perspectiva 3D */}

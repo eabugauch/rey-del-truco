@@ -6,6 +6,42 @@
 @tailwind utilities;
 
 /* =================================================================
+   🎯 SISTEMA DE ESPACIADO CON PROPORCIÓN ÁUREA
+   ================================================================= */
+
+:root {
+  /* Golden ratio-based spacing system */
+  --golden-ratio: 1.618;
+  --space-xs: 0.382rem;  /* Golden ratio inverse */
+  --space-sm: 0.618rem;  /* Golden ratio inverse squared */
+  --space-md: 1rem;      /* Base unit */
+  --space-lg: 1.618rem;  /* Golden ratio */
+  --space-xl: 2.618rem;  /* Golden ratio + 1 */
+  --space-xxl: 4.236rem; /* Golden ratio squared */
+  
+  /* Typography scale based on golden ratio */
+  --text-xs: clamp(0.7rem, 1.5vw, 0.8rem);
+  --text-sm: clamp(0.85rem, 2vw, 1rem);
+  --text-md: clamp(1rem, 2.5vw, 1.25rem);
+  --text-lg: clamp(1.25rem, 3vw, 1.618rem);
+  --text-xl: clamp(1.618rem, 4vw, 2.618rem);
+  --text-xxl: clamp(2.618rem, 6vw, 4.236rem);
+  
+  /* Layout proportions */
+  --container-padding: var(--space-lg);
+  --element-gap: var(--space-md);
+  --section-gap: var(--space-xl);
+  
+  /* Z-index hierarchy system */
+  --z-background: 1;     /* Background effects (particles, bokeh) */
+  --z-base: 5;           /* Base content layer */
+  --z-content: 10;       /* Main content (container, throne) */
+  --z-interactive: 15;   /* Interactive elements (buttons) */
+  --z-overlay: 20;       /* Decorative overlays (corona) */
+  --z-modal: 30;         /* Modals and popups */
+}
+
+/* =================================================================
    FASE 1: ENTRADA CINEMATOGRÁFICA - EPIC INICIO
    ================================================================= */
 
@@ -30,28 +66,6 @@
   animation: slowEntrance 5s ease-out;
 }
 
-/* Corona descendente con rotación */
-@keyframes coronaDescent {
-  0% { 
-    transform: translateY(-200px) rotate(-10deg) scale(0.8);
-    opacity: 0;
-    filter: blur(5px);
-  }
-  50% {
-    transform: translateY(-50px) rotate(-5deg) scale(0.9);
-    opacity: 0.7;
-    filter: blur(2px);
-  }
-  100% { 
-    transform: translateY(0) rotate(0deg) scale(1);
-    opacity: 1;
-    filter: blur(0px);
-  }
-}
-
-.corona-descent {
-  animation: coronaDescent 4s ease-out 0.5s both;
-}
 
 /* Trono emerge desde las sombras */
 @keyframes tronoEmerge {
@@ -81,38 +95,209 @@
   animation: tronoEmerge 4s ease-out 2s both;
 }
 
-/* Partículas doradas flotantes */
-@keyframes particleFloat {
+/* ✨ SISTEMA DE PARTÍCULAS CINEMATOGRÁFICAS */
+
+/* Partículas doradas grandes - Estrellas principales */
+@keyframes cinemaParticleFloat {
   0% { 
-    transform: translateY(100vh) translateX(0) rotate(0deg);
+    transform: translateY(120vh) translateX(0) rotate(0deg) scale(0.5);
     opacity: 0;
+    filter: blur(2px);
   }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
+  5% { 
+    opacity: 0.8;
+    filter: blur(0px);
+  }
+  15% { 
+    transform: translateY(80vh) translateX(20px) rotate(45deg) scale(1);
+    opacity: 1;
+    filter: blur(0px);
+  }
+  50% { 
+    transform: translateY(40vh) translateX(-10px) rotate(180deg) scale(0.8);
+    opacity: 0.9;
+    filter: blur(0.5px);
+  }
+  85% { 
+    transform: translateY(10vh) translateX(30px) rotate(315deg) scale(1.2);
+    opacity: 0.7;
+    filter: blur(1px);
+  }
   100% { 
-    transform: translateY(-100px) translateX(50px) rotate(360deg);
+    transform: translateY(-10vh) translateX(0) rotate(360deg) scale(0.3);
     opacity: 0;
+    filter: blur(3px);
   }
 }
 
-.golden-particle {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  background: radial-gradient(circle, #FFD700, #D4AF37);
-  border-radius: 50%;
-  animation: particleFloat 8s linear infinite;
+/* Partículas medianas - Polvo dorado */
+@keyframes cinemaParticleDrift {
+  0% { 
+    transform: translateY(110vh) translateX(0) rotate(0deg) scale(0.3);
+    opacity: 0;
+    filter: blur(1px);
+  }
+  8% { 
+    opacity: 0.6;
+    filter: blur(0.5px);
+  }
+  25% { 
+    transform: translateY(75vh) translateX(-15px) rotate(90deg) scale(0.7);
+    opacity: 0.8;
+    filter: blur(0px);
+  }
+  60% { 
+    transform: translateY(35vh) translateX(25px) rotate(200deg) scale(0.9);
+    opacity: 0.5;
+    filter: blur(0.5px);
+  }
+  90% { 
+    transform: translateY(5vh) translateX(-5px) rotate(320deg) scale(0.4);
+    opacity: 0.3;
+    filter: blur(1.5px);
+  }
+  100% { 
+    transform: translateY(-5vh) translateX(0) rotate(360deg) scale(0.1);
+    opacity: 0;
+    filter: blur(2px);
+  }
 }
 
-.golden-particle:nth-child(1) { left: 10%; animation-delay: 0s; }
-.golden-particle:nth-child(2) { left: 20%; animation-delay: 1s; }
-.golden-particle:nth-child(3) { left: 30%; animation-delay: 2s; }
-.golden-particle:nth-child(4) { left: 40%; animation-delay: 3s; }
-.golden-particle:nth-child(5) { left: 50%; animation-delay: 4s; }
-.golden-particle:nth-child(6) { left: 60%; animation-delay: 5s; }
-.golden-particle:nth-child(7) { left: 70%; animation-delay: 6s; }
-.golden-particle:nth-child(8) { left: 80%; animation-delay: 7s; }
-.golden-particle:nth-child(9) { left: 90%; animation-delay: 8s; }
+/* Partículas pequeñas - Sparkles */
+@keyframes cinemaParticleSparkle {
+  0% { 
+    transform: translateY(105vh) translateX(0) rotate(0deg) scale(0.1);
+    opacity: 0;
+    filter: blur(0.5px);
+  }
+  12% { 
+    opacity: 0.9;
+    filter: blur(0px);
+  }
+  30% { 
+    transform: translateY(70vh) translateX(10px) rotate(120deg) scale(0.5);
+    opacity: 1;
+    filter: blur(0px);
+  }
+  65% { 
+    transform: translateY(30vh) translateX(-8px) rotate(240deg) scale(0.3);
+    opacity: 0.7;
+    filter: blur(0.3px);
+  }
+  95% { 
+    transform: translateY(2vh) translateX(12px) rotate(350deg) scale(0.6);
+    opacity: 0.2;
+    filter: blur(1px);
+  }
+  100% { 
+    transform: translateY(-2vh) translateX(0) rotate(360deg) scale(0.1);
+    opacity: 0;
+    filter: blur(1.5px);
+  }
+}
+
+/* Partículas grandes - Estrella cinematográfica */
+.golden-particle-large {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 215, 0, 0.9) 0%,
+    rgba(255, 215, 0, 0.7) 30%,
+    rgba(212, 175, 55, 0.5) 60%,
+    rgba(212, 175, 55, 0.2) 80%,
+    transparent 100%
+  );
+  border-radius: 50%;
+  animation: cinemaParticleFloat 12s ease-in-out infinite;
+  box-shadow: 
+    0 0 8px rgba(255, 215, 0, 0.5),
+    0 0 16px rgba(255, 215, 0, 0.3),
+    0 0 24px rgba(255, 215, 0, 0.1);
+}
+
+/* Partículas medianas - Polvo dorado */
+.golden-particle-medium {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 215, 0, 0.8) 0%,
+    rgba(212, 175, 55, 0.6) 40%,
+    rgba(212, 175, 55, 0.3) 70%,
+    transparent 100%
+  );
+  border-radius: 50%;
+  animation: cinemaParticleDrift 10s ease-in-out infinite;
+  box-shadow: 
+    0 0 6px rgba(255, 215, 0, 0.4),
+    0 0 12px rgba(255, 215, 0, 0.2);
+}
+
+/* Partículas pequeñas - Sparkles */
+.golden-particle-small {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 215, 0, 1) 0%,
+    rgba(255, 215, 0, 0.8) 20%,
+    rgba(212, 175, 55, 0.4) 50%,
+    transparent 100%
+  );
+  border-radius: 50%;
+  animation: cinemaParticleSparkle 8s ease-in-out infinite;
+  box-shadow: 
+    0 0 4px rgba(255, 215, 0, 0.6),
+    0 0 8px rgba(255, 215, 0, 0.3);
+}
+
+/* Partículas micro - Ambiente */
+.golden-particle-micro {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 215, 0, 0.9) 0%,
+    rgba(212, 175, 55, 0.5) 30%,
+    transparent 100%
+  );
+  border-radius: 50%;
+  animation: cinemaParticleSparkle 6s ease-in-out infinite;
+  box-shadow: 0 0 3px rgba(255, 215, 0, 0.4);
+}
+
+/* Distribución de partículas grandes */
+.golden-particle-large:nth-child(1) { left: 5%; animation-delay: 0s; animation-duration: 14s; }
+.golden-particle-large:nth-child(2) { left: 25%; animation-delay: 2s; animation-duration: 16s; }
+.golden-particle-large:nth-child(3) { left: 45%; animation-delay: 4s; animation-duration: 13s; }
+.golden-particle-large:nth-child(4) { left: 65%; animation-delay: 6s; animation-duration: 15s; }
+.golden-particle-large:nth-child(5) { left: 85%; animation-delay: 8s; animation-duration: 17s; }
+
+/* Distribución de partículas medianas */
+.golden-particle-medium:nth-child(6) { left: 10%; animation-delay: 1s; animation-duration: 11s; }
+.golden-particle-medium:nth-child(7) { left: 30%; animation-delay: 3s; animation-duration: 12s; }
+.golden-particle-medium:nth-child(8) { left: 50%; animation-delay: 5s; animation-duration: 9s; }
+.golden-particle-medium:nth-child(9) { left: 70%; animation-delay: 7s; animation-duration: 13s; }
+.golden-particle-medium:nth-child(10) { left: 90%; animation-delay: 9s; animation-duration: 10s; }
+
+/* Distribución de partículas pequeñas */
+.golden-particle-small:nth-child(11) { left: 8%; animation-delay: 0.5s; animation-duration: 7s; }
+.golden-particle-small:nth-child(12) { left: 18%; animation-delay: 1.5s; animation-duration: 9s; }
+.golden-particle-small:nth-child(13) { left: 38%; animation-delay: 2.5s; animation-duration: 6s; }
+.golden-particle-small:nth-child(14) { left: 58%; animation-delay: 3.5s; animation-duration: 8s; }
+.golden-particle-small:nth-child(15) { left: 78%; animation-delay: 4.5s; animation-duration: 7s; }
+
+/* Distribución de partículas micro */
+.golden-particle-micro:nth-child(16) { left: 15%; animation-delay: 0.2s; animation-duration: 5s; }
+.golden-particle-micro:nth-child(17) { left: 35%; animation-delay: 1.2s; animation-duration: 6s; }
+.golden-particle-micro:nth-child(18) { left: 55%; animation-delay: 2.2s; animation-duration: 4s; }
+.golden-particle-micro:nth-child(19) { left: 75%; animation-delay: 3.2s; animation-duration: 7s; }
+.golden-particle-micro:nth-child(20) { left: 95%; animation-delay: 4.2s; animation-duration: 5s; }
 
 /* Contenedor para partículas */
 .particles-container {
@@ -121,7 +306,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 1;
+  z-index: var(--z-background);
   pointer-events: none;
 }
 
@@ -140,7 +325,7 @@
 /* Optimizaciones de performance */
 .epic-entrance-container {
   position: relative;
-  z-index: 10;
+  z-index: var(--z-content);
 }
 
 .epic-entrance-layout {
@@ -151,14 +336,36 @@
 
 /* Responsive para efectos */
 @media (max-width: 768px) {
-  .golden-particle {
-    width: 3px;
-    height: 3px;
+  .golden-particle-large {
+    width: 6px;
+    height: 6px;
+    box-shadow: 
+      0 0 6px rgba(255, 215, 0, 0.4),
+      0 0 12px rgba(255, 215, 0, 0.2);
   }
   
-  .corona-descent {
-    animation-duration: 1.5s;
+  .golden-particle-medium {
+    width: 4px;
+    height: 4px;
+    box-shadow: 
+      0 0 4px rgba(255, 215, 0, 0.3),
+      0 0 8px rgba(255, 215, 0, 0.15);
   }
+  
+  .golden-particle-small {
+    width: 2px;
+    height: 2px;
+    box-shadow: 
+      0 0 3px rgba(255, 215, 0, 0.5),
+      0 0 6px rgba(255, 215, 0, 0.2);
+  }
+  
+  .golden-particle-micro {
+    width: 1px;
+    height: 1px;
+    box-shadow: 0 0 2px rgba(255, 215, 0, 0.3);
+  }
+  
   
   .trono-emergence {
     animation-duration: 2s;
@@ -168,15 +375,20 @@
 /* Reducir movimiento si es preferido */
 @media (prefers-reduced-motion: reduce) {
   .epic-entrance-sequence,
-  .corona-descent,
   .trono-emergence,
   .fade-in-delayed {
     animation-duration: 0.3s;
   }
   
-  .golden-particle {
+  .golden-particle-large,
+  .golden-particle-medium,
+  .golden-particle-small,
+  .golden-particle-micro {
     animation: none;
-    opacity: 0.3;
+    opacity: 0.4;
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
   }
 }
 
@@ -199,16 +411,176 @@
   transform-style: preserve-3d;
 }
 
-.rey-premium-title {
-  font-family: 'Tilt Warp', cursive;
-  font-weight: 400;
-  color: #F5DEB3;
-  text-align: center;
-  line-height: 0.85;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
+/* 🖼️ IMAGE-BASED LOGO SYSTEM */
+.rey-premium-logo-container {
   position: relative;
-  z-index: 10;
+  z-index: var(--z-content);
+  margin: var(--space-xl) 0;
+  text-align: center;
+}
+
+.rey-premium-logo-line-1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem; /* Espaciado mínimo entre REY y DEL - más juntas */
+  margin-bottom: 0.05rem; /* Espaciado mínimo para que parezcan casi pegadas */
+}
+
+.rey-premium-logo-line-2 {
+  display: flex;
+  justify-content: center;
+}
+
+/* Base styling for all logo images */
+.logo-image {
+  transform-style: preserve-3d;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.8))
+          drop-shadow(0 6px 12px rgba(0, 0, 0, 0.6))
+          drop-shadow(0 0 20px rgba(0, 0, 0, 0.4));
+}
+
+/* Sizing system - REY y DEL para línea superior, TRUCO agrandada para coincidir con ancho total */
+.logo-rey {
+  height: 13.104rem; /* Agrandada 30% más (10.08rem * 1.3) */
+  width: auto;
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.8))
+          drop-shadow(0 6px 12px rgba(0, 0, 0, 0.6))
+          drop-shadow(0 0 20px rgba(0, 0, 0, 0.4))
+          drop-shadow(0 0 40px rgba(139, 69, 19, 0.3)); /* Sutil resplandor dorado-marrón */
+  background: radial-gradient(ellipse at center, rgba(139, 69, 19, 0.15) 0%, transparent 70%);
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+
+.logo-del {
+  height: 9.173rem; /* Agrandada 30% más (7.056rem * 1.3) */
+  width: auto;
+  position: relative;
+  left: -2.5rem; /* Mover DEL un poco más hacia la izquierda */
+  top: 0.5rem; /* Mover DEL un poco hacia abajo */
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.8))
+          drop-shadow(0 6px 12px rgba(0, 0, 0, 0.6))
+          drop-shadow(0 0 20px rgba(0, 0, 0, 0.4))
+          drop-shadow(0 0 35px rgba(101, 67, 33, 0.25)); /* Resplandor más sutil para DEL */
+  background: radial-gradient(ellipse at center, rgba(101, 67, 33, 0.12) 0%, transparent 70%);
+  border-radius: 6px;
+  padding: 0.4rem;
+}
+
+.logo-truco {
+  height: 21.45rem; /* Agrandada 30% más (16.5rem * 1.3) */
+  width: auto;
+  margin-top: -7rem; /* Bajar TRUCO 0.3rem */
+  filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.9))
+          drop-shadow(0 8px 16px rgba(0, 0, 0, 0.7))
+          drop-shadow(0 0 24px rgba(0, 0, 0, 0.5))
+          drop-shadow(0 0 50px rgba(160, 82, 45, 0.35)); /* Resplandor más intenso para TRUCO */
+  background: radial-gradient(ellipse at center, rgba(160, 82, 45, 0.18) 0%, transparent 75%);
+  border-radius: 10px;
+  padding: 0.6rem;
+}
+
+/* 🎭 3D DEPTH EFFECTS FOR EACH LOGO IMAGE - Will be applied after entrance */
+
+/* Individual floating animations for each logo piece */
+@keyframes logoFloat3D-rey {
+  0%, 100% { 
+    transform: translateZ(30px) rotateY(-3deg) rotateX(2deg) translateY(0);
+    filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.8))
+            drop-shadow(0 6px 12px rgba(0, 0, 0, 0.6))
+            drop-shadow(0 0 20px rgba(0, 0, 0, 0.4));
+  }
+  50% { 
+    transform: translateZ(40px) rotateY(-2deg) rotateX(3deg) translateY(-8px);
+    filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.9))
+            drop-shadow(0 8px 16px rgba(0, 0, 0, 0.7))
+            drop-shadow(0 0 30px rgba(0, 0, 0, 0.5));
+  }
+}
+
+@keyframes logoFloat3D-del {
+  0%, 100% { 
+    transform: translateZ(20px) rotateY(2deg) rotateX(-1deg) translateY(0);
+    filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.8))
+            drop-shadow(0 6px 12px rgba(0, 0, 0, 0.6))
+            drop-shadow(0 0 20px rgba(0, 0, 0, 0.4));
+  }
+  50% { 
+    transform: translateZ(30px) rotateY(3deg) rotateX(-2deg) translateY(-5px);
+    filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.85))
+            drop-shadow(0 7px 14px rgba(0, 0, 0, 0.65))
+            drop-shadow(0 0 25px rgba(0, 0, 0, 0.45));
+  }
+}
+
+@keyframes logoFloat3D-truco {
+  0%, 100% { 
+    transform: translateZ(10px) rotateY(-1deg) rotateX(1deg) translateY(0);
+    filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.8))
+            drop-shadow(0 6px 12px rgba(0, 0, 0, 0.6))
+            drop-shadow(0 0 20px rgba(0, 0, 0, 0.4));
+  }
+  50% { 
+    transform: translateZ(20px) rotateY(-0.5deg) rotateX(2deg) translateY(-6px);
+    filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.85))
+            drop-shadow(0 7px 14px rgba(0, 0, 0, 0.65))
+            drop-shadow(0 0 25px rgba(0, 0, 0, 0.45));
+  }
+}
+
+/* 🎬 STAGGERED ENTRANCE ANIMATIONS */
+
+/* Base entrance animation */
+@keyframes logoEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.8) rotateY(15deg);
+    filter: blur(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateY(0deg);
+    filter: blur(0px);
+  }
+}
+
+/* Apply staggered entrance and 3D effects */
+.logo-rey {
+  opacity: 0;
+  animation: logoEntrance 1.2s ease-out 0.5s forwards;
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.8))
+          drop-shadow(0 6px 12px rgba(0, 0, 0, 0.6))
+          drop-shadow(0 0 20px rgba(0, 0, 0, 0.4));
+}
+
+.logo-del {
+  opacity: 0;
+  animation: logoEntrance 1.2s ease-out 1.2s forwards;
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.8))
+          drop-shadow(0 6px 12px rgba(0, 0, 0, 0.6))
+          drop-shadow(0 0 20px rgba(0, 0, 0, 0.4));
+}
+
+.logo-truco {
+  opacity: 0;
+  animation: logoEntrance 1.2s ease-out 1.8s forwards;
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.8))
+          drop-shadow(0 6px 12px rgba(0, 0, 0, 0.6))
+          drop-shadow(0 0 20px rgba(0, 0, 0, 0.4));
+}
+
+/* Accessibility: Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .logo-image {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6))
+            drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4))
+            drop-shadow(0 0 12px rgba(0, 0, 0, 0.3));
+  }
 }
 
 .rey-premium-container {
@@ -224,7 +596,34 @@
   
   /* 🎭 FASE 2: Contenedor 3D */
   transform-style: preserve-3d;
-  z-index: 10;
+  z-index: var(--z-content);
+}
+
+/* Main content sequence */
+.epic-entrance-sequence {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem; /* Restore original spacing */
+  width: 100%;
+  max-width: 600px;
+}
+
+.rey-premium-buttons {
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  width: 90%;
+  max-width: 350px;
+  z-index: var(--z-interactive);
+  transition: bottom 0.4s ease;
 }
 
 .rey-premium-container.form-container {
@@ -233,25 +632,17 @@
   padding: 2rem 1.5rem 1rem;
 }
 
-.rey-premium-corona {
-  width: 120px;
-  height: auto;
-  margin-bottom: -25px;
-  z-index: 20;
-  filter: drop-shadow(0 4px 20px rgba(212, 165, 116, 0.4));
-  animation: float-corona 4s ease-in-out infinite;
-}
 
 .rey-premium-trono {
-  width: 550px;
+  width: clamp(420px, 50vw, 600px);
   height: auto;
-  margin-top: 10px;
+  margin: -8rem 0 var(--space-xl) 0; /* Subir trono 5rem más para reducir espacio */
   filter: 
-    drop-shadow(0 15px 50px rgba(0, 0, 0, 0.7))
-    drop-shadow(0 5px 20px rgba(212, 165, 116, 0.1));
+    drop-shadow(0 20px 60px rgba(0, 0, 0, 0.8))
+    drop-shadow(0 8px 30px rgba(212, 165, 116, 0.15));
   opacity: 0.98;
   position: relative;
-  z-index: 1;
+  z-index: var(--z-background);
   animation: throne-glow 6s ease-in-out infinite;
 }
 
@@ -272,17 +663,15 @@
 .rey-premium-buttons {
   position: absolute;
   bottom: 40px;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;
   width: 90%;
   max-width: 350px;
-  z-index: 5;
+  z-index: var(--z-interactive); /* Above particles, below corona */
   transition: bottom 0.4s ease;
 }
 
@@ -312,12 +701,12 @@
   }
   
   .rey-premium-buttons.has-continue {
-    bottom: 120px;
+    bottom: 100px;
   }
   
   .rey-premium-trono {
-    width: 180px;
-    margin-top: 0;
+    width: 280px; /* Override clamp for very small landscape screens */
+    margin: -7rem 0 1rem 0;
   }
 }
 
@@ -456,19 +845,6 @@
   margin-top: 0.5rem;
 }
 
-.rey-premium-corona-top {
-  width: 120px;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-  filter: drop-shadow(0 4px 20px rgba(212, 165, 116, 0.4));
-  animation: crown-float 3s ease-in-out infinite;
-}
-
-@keyframes crown-float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-5px) rotate(3deg); }
-}
 
 /* Contenido del formulario */
 .rey-premium-form-content {
@@ -948,21 +1324,32 @@
   100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
 }
 
-/* Responsive adjustments */
+/* Responsive adjustments for logo images */
 @media (max-width: 768px) {
-  .rey-premium-title div span:first-child { font-size: 5rem !important; }
-  .rey-premium-title div span:last-child { font-size: 3.5rem !important; }
-  .rey-premium-title span:last-child { font-size: 5rem !important; }
-  
-  .rey-premium-corona {
-    width: 100px;
-    margin-bottom: -20px;
+  /* Logo image sizes for tablet */
+  .logo-rey { 
+    height: 10.92rem; /* REY agrandada 30% más para tablet (8.4rem * 1.3) */
+  }
+  .logo-del { 
+    height: 7.644rem; /* DEL agrandada 30% más para tablet (5.88rem * 1.3) */
+    position: relative;
+    left: -2rem; /* Mover DEL un poco más hacia la izquierda para tablet */
+    top: 0.4rem; /* Mover DEL un poco hacia abajo para tablet */
+  }
+  .logo-truco {
+    height: 17.55rem; /* TRUCO agrandada 30% más para tablet (13.5rem * 1.3) */
+    margin-top: -6.3rem; /* Bajar TRUCO 0.3rem para tablet */
   }
   
-  .rey-premium-trono {
-    width: 450px;
-    margin-top: 5px;
+  /* Adjust spacing for tablet */
+  .rey-premium-logo-line-1 { 
+    gap: 0.2rem; 
+    margin-bottom: 0.03rem;
   }
+  
+  /* Corona now uses fluid clamp() - no fixed sizes needed */
+  
+  /* Trono now uses fluid clamp() - no fixed sizes needed */
   
   .rey-premium-container {
     padding: 1rem;
@@ -975,7 +1362,7 @@
   }
   
   .rey-premium-buttons.has-continue {
-    bottom: 120px;
+    bottom: 100px;
   }
   
   .rey-premium-button {
@@ -993,25 +1380,46 @@
 }
 
 @media (max-width: 480px) {
-  .rey-premium-title div span:first-child { font-size: 4rem !important; }
-  .rey-premium-title div span:last-child { font-size: 2.8rem !important; }
-  .rey-premium-title span:last-child { font-size: 4rem !important; }
-  
-  .rey-premium-corona {
-    width: 80px;
-    margin-bottom: -15px;
+  /* Logo image sizes for mobile */
+  .logo-rey { 
+    height: 8.736rem; /* REY agrandada 30% más para mobile (6.72rem * 1.3) */
+  }
+  .logo-del { 
+    height: 6.115rem; /* DEL agrandada 30% más para mobile (4.704rem * 1.3) */
+    position: relative;
+    left: -1.6rem; /* Mover DEL un poco más hacia la izquierda para mobile */
+    top: 0.3rem; /* Mover DEL un poco hacia abajo para mobile */
+  }
+  .logo-truco {
+    height: 14.04rem; /* TRUCO agrandada 30% más para mobile (10.8rem * 1.3) */
+    margin-top: -5.6rem; /* Bajar TRUCO 0.3rem para mobile */
   }
   
-  .rey-premium-trono {
-    width: 380px;
+  /* Adjust spacing for mobile */
+  .rey-premium-logo-line-1 { 
+    gap: 0.15rem; 
+    margin-bottom: 0.02rem;
   }
+  
+  /* Simplify 3D effects on mobile for better performance */
+  .logo-image {
+    transform: none !important;
+    animation: none !important;
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.7))
+            drop-shadow(0 3px 6px rgba(0, 0, 0, 0.5))
+            drop-shadow(0 0 15px rgba(0, 0, 0, 0.3));
+  }
+  
+  /* Corona now uses fluid clamp() - no fixed sizes needed */
+  
+  /* Trono now uses fluid clamp() - no fixed sizes needed */
   
   .rey-premium-container {
     padding-bottom: 10rem;
   }
   
   .rey-premium-buttons.has-continue {
-    bottom: 120px;
+    bottom: 100px;
   }
   
   .rey-premium-button {
@@ -1024,9 +1432,6 @@
     font-size: 1.5rem;
   }
   
-  .rey-premium-corona-top {
-    width: 100px;
-  }
   
   .rey-premium-teams-container {
     flex-direction: column;
@@ -1103,7 +1508,7 @@
     radial-gradient(ellipse at 80% 80%, rgba(248, 231, 28, 0.05) 0%, transparent 50%),
     radial-gradient(ellipse at 50% 50%, rgba(184, 134, 11, 0.03) 0%, transparent 70%);
   pointer-events: none;
-  z-index: 1;
+  z-index: var(--z-background);
 }
 
 .rey-cinematic-container::after {
@@ -1147,7 +1552,7 @@
     0 0 40px rgba(248, 231, 28, 0.15);
   position: relative;
   overflow: hidden;
-  z-index: 10;
+  z-index: var(--z-content);
 }
 
 .rey-premium-card::before {
@@ -1166,7 +1571,7 @@
   background-size: 200% 200%;
   animation: card-shine 8s ease-in-out infinite;
   pointer-events: none;
-  z-index: 1;
+  z-index: var(--z-background);
 }
 
 @keyframes card-shine {
@@ -1289,7 +1694,7 @@
   bottom: 0;
   background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d4af37' fill-opacity='0.03'%3E%3Cpath d='M30 30c0-16.569-13.431-30-30-30S-30 13.431-30 30s13.431 30 30 30 30-13.431 30-30zm-20 0c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10-10-4.477-10-10z'/%3E%3C/g%3E%3C/svg%3E");
   pointer-events: none;
-  z-index: 1;
+  z-index: var(--z-background);
 }
 
 .rey-player-name-input {
@@ -1752,7 +2157,7 @@ html, body, #root, .App {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: var(--z-background);
   background: linear-gradient(
     45deg,
     transparent 30%,
@@ -3337,7 +3742,7 @@ html, body, #root, .App {
   color: var(--rey-gold-bright);
   animation: goldParticle 1.5s ease-out infinite;
   pointer-events: none;
-  z-index: 1;
+  z-index: var(--z-background);
 }
 
 /* Efecto mejorado para botones circulares */
@@ -3360,7 +3765,7 @@ html, body, #root, .App {
   font-size: clamp(0.8rem, 2.5vw, 1.2rem);
   animation: sparkle 2s ease-in-out infinite;
   pointer-events: none;
-  z-index: 1;
+  z-index: var(--z-background);
 }
 
 .sparkle-effect::before {
@@ -4120,7 +4525,7 @@ button {
   letter-spacing: 0.1em !important;
   text-transform: uppercase !important;
   position: relative;
-  z-index: 10;
+  z-index: var(--z-content);
 }
 
 .rey-modal-title::before {
@@ -5002,7 +5407,7 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10;
+  z-index: var(--z-content);
 }
 
 .rey-crown-glow {
@@ -5349,7 +5754,7 @@ html {
   width: 140px;
   padding: 0 0.5rem;
   position: relative;
-  z-index: 10;
+  z-index: var(--z-content);
 }
 
 .rey-premium-throne-divider img {
@@ -6008,7 +6413,7 @@ html {
 /* 🎭 SISTEMA DE CAPAS DE PROFUNDIDAD */
 .depth-layer-1 {
   transform: translateZ(100px);
-  z-index: 10;
+  z-index: var(--z-content);
 }
 
 .depth-layer-2 {
@@ -6048,13 +6453,13 @@ html {
     transparent 30%
   );
   filter: blur(8px);
-  z-index: 1;
+  z-index: var(--z-background);
 }
 
 /* 🎯 CLASES DE ENFOQUE */
 .focus-sharp {
   filter: blur(0px);
-  z-index: 10;
+  z-index: var(--z-content);
 }
 
 .focus-medium {
@@ -6084,4 +6489,6 @@ html {
     perspective: 800px;
   }
 }
+
+
 
