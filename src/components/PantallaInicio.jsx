@@ -1,5 +1,5 @@
 // src/components/PantallaInicio.jsx
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { useState } from 'react';
 
 // Import ALL images the same way as tronoImage (which works on iOS Safari)
 import reyInicioImage from '../styles/assets/images/reyinicio.png';
@@ -13,24 +13,10 @@ const PantallaInicio = ({ onIniciarPartida, onContinuarPartida, haySavedGame }) 
     puntosTotales: 30
   });
   
-  // Ref para prevenir stale closures
-  const modoRef = useRef(modoSeleccionado);
-  
-  // Actualizar ref cuando cambia el estado
-  useEffect(() => {
-    modoRef.current = modoSeleccionado;
-  }, [modoSeleccionado]);
-  
-  // Handler estable para el botón VOLVER - evita stale closures
-  const handleVolverClick = useCallback((e) => {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    
-    // Forzar actualización inmediata usando callback
-    setModoSeleccionado(prev => null);
-  }, []); // Sin dependencias para evitar re-creación
+  const volverAInicio = () => {
+    console.log('VOLVER A INICIO clicked - setting to null');
+    setModoSeleccionado(null);
+  };
 
   const iniciarRapido = () => {
     onIniciarPartida({
@@ -40,13 +26,10 @@ const PantallaInicio = ({ onIniciarPartida, onContinuarPartida, haySavedGame }) 
     });
   };
 
-  const iniciarPersonalizado = useCallback((e) => {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
+  const iniciarPersonalizado = () => {
+    console.log('INICIAR PERSONALIZADO clicked');
     onIniciarPartida(configuracion);
-  }, [configuracion, onIniciarPartida]);
+  };
 
   const renderModoRapido = () => (
     <div className="rey-premium-layout">
@@ -91,7 +74,7 @@ const PantallaInicio = ({ onIniciarPartida, onContinuarPartida, haySavedGame }) 
         <div className="rey-premium-form-buttons">
           <button
             type="button"
-            onClick={handleVolverClick}
+            onClick={volverAInicio}
             className="rey-premium-button rey-premium-button-secondary"
           >
             ← VOLVER
@@ -167,7 +150,7 @@ const PantallaInicio = ({ onIniciarPartida, onContinuarPartida, haySavedGame }) 
         <div className="rey-premium-form-buttons">
           <button
             type="button"
-            onClick={handleVolverClick}
+            onClick={volverAInicio}
             className="rey-premium-button rey-premium-button-secondary"
             style={{ 
               width: '48%',
