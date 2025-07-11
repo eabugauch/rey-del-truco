@@ -432,6 +432,7 @@ const AnotadorTruco = () => {
   if (pantallaActual === 'inicio') {
     return (
       <PantallaInicio 
+        key={`inicio-${pantallaActual}`} // Force re-mount cuando se navega a inicio
         onIniciarPartida={iniciarPartida}
         onContinuarPartida={() => setPantallaActual('juego')}
         haySavedGame={historial.length > 0 && !ganador}

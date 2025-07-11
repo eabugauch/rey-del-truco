@@ -1,5 +1,9 @@
 // src/components/PantallaInicio.jsx
-import { useState } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
+
+// Import ALL images the same way as tronoImage (which works on iOS Safari)
+import reyInicioImage from '../styles/assets/images/reyinicio.png';
+import tronoImage from '../styles/assets/images/tronoArg.png';
 
 const PantallaInicio = ({ onIniciarPartida, onContinuarPartida, haySavedGame }) => {
   const [modoSeleccionado, setModoSeleccionado] = useState(null); // null | 'rapido' | 'personalizado'
@@ -8,6 +12,25 @@ const PantallaInicio = ({ onIniciarPartida, onContinuarPartida, haySavedGame }) 
     jugador2: 'Ellos',
     puntosTotales: 30
   });
+  
+  // Ref para prevenir stale closures
+  const modoRef = useRef(modoSeleccionado);
+  
+  // Actualizar ref cuando cambia el estado
+  useEffect(() => {
+    modoRef.current = modoSeleccionado;
+  }, [modoSeleccionado]);
+  
+  // Handler estable para el botón VOLVER - evita stale closures
+  const handleVolverClick = useCallback((e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    
+    // Forzar actualización inmediata usando callback
+    setModoSeleccionado(prev => null);
+  }, []); // Sin dependencias para evitar re-creación
 
   const iniciarRapido = () => {
     onIniciarPartida({
@@ -17,9 +40,13 @@ const PantallaInicio = ({ onIniciarPartida, onContinuarPartida, haySavedGame }) 
     });
   };
 
-  const iniciarPersonalizado = () => {
+  const iniciarPersonalizado = useCallback((e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     onIniciarPartida(configuracion);
-  };
+  }, [configuracion, onIniciarPartida]);
 
   const renderModoRapido = () => (
     <div className="rey-premium-layout">
@@ -63,14 +90,15 @@ const PantallaInicio = ({ onIniciarPartida, onContinuarPartida, haySavedGame }) 
 
         <div className="rey-premium-form-buttons">
           <button
-            onClick={() => setModoSeleccionado(null)}
-            className="rey-premium-button rey-premium-button-secondary flex-1"
+            type="button"
+            onClick={handleVolverClick}
+            className="rey-premium-button rey-premium-button-secondary"
           >
             ← VOLVER
           </button>
           <button
             onClick={iniciarRapido}
-            className="rey-premium-button rey-premium-button-primary flex-2"
+            className="rey-premium-button rey-premium-button-primary"
           >
             ¡A JUGAR! 🎮
           </button>
@@ -80,7 +108,7 @@ const PantallaInicio = ({ onIniciarPartida, onContinuarPartida, haySavedGame }) 
   );
 
   const renderModoPersonalizado = () => (
-    <div className="rey-premium-layout">
+    <div className="rey-premium-layout" onClick={(e) => e.stopPropagation()}>
       <div className="rey-premium-container form-container">
         {/* Header Compacto */}
         <div className="rey-premium-header-minimal">
@@ -138,14 +166,30 @@ const PantallaInicio = ({ onIniciarPartida, onContinuarPartida, haySavedGame }) 
 
         <div className="rey-premium-form-buttons">
           <button
-            onClick={() => setModoSeleccionado(null)}
-            className="rey-premium-button rey-premium-button-secondary flex-1"
+            type="button"
+            onClick={handleVolverClick}
+            className="rey-premium-button rey-premium-button-secondary"
+            style={{ 
+              width: '48%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              textAlign: 'center'
+            }}
           >
             ← VOLVER
           </button>
           <button
+            type="button"
             onClick={iniciarPersonalizado}
-            className="rey-premium-button rey-premium-button-primary flex-2"
+            className="rey-premium-button rey-premium-button-primary"
+            style={{ 
+              width: '48%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              textAlign: 'center'
+            }}
           >
             ¡LARGUEMOS!
           </button>
@@ -191,33 +235,19 @@ const PantallaInicio = ({ onIniciarPartida, onContinuarPartida, haySavedGame }) 
         <div className="flex flex-col items-center epic-entrance-sequence">
           {/* 🎭 FASE 2: Título Premium con profundidad */}
           <div className="depth-layer-2">
-            <div className="rey-premium-logo-container fade-in-delayed delay-2 focus-sharp">
-              <div className="rey-premium-logo-line-1">
-                <img 
-                  src={require('../styles/assets/images/rey.png')} 
-                  alt="REY" 
-                  className="logo-image logo-rey" 
-                />
-                <img 
-                  src={require('../styles/assets/images/del.png')} 
-                  alt="DEL" 
-                  className="logo-image logo-del" 
-                />
-              </div>
-              <div className="rey-premium-logo-line-2">
-                <img 
-                  src={require('../styles/assets/images/truco.png')} 
-                  alt="TRUCO" 
-                  className="logo-image logo-truco" 
-                />
-              </div>
+            <div className="rey-premium-logo-container focus-sharp">
+              <img 
+                src={reyInicioImage} 
+                alt="Rey del Truco" 
+                className="logo-image logo-unified"
+              />
             </div>
           </div>
           
           {/* 🎭 FASE 2: Trono Argentino con perspectiva 3D */}
           <div className="depth-layer-3">
             <img 
-              src={require('../styles/assets/images/tronoArg.png')} 
+              src={tronoImage} 
               alt="Trono Argentino" 
               className="rey-premium-trono trono-emergence focus-medium gpu-accelerated"
             />
@@ -231,6 +261,7 @@ const PantallaInicio = ({ onIniciarPartida, onContinuarPartida, haySavedGame }) 
               <button
                 onClick={onContinuarPartida}
                 className="rey-premium-button continue-game"
+                style={{ width: '100%', minWidth: '300px' }}
               >
                 CONTINUAR
               </button>
@@ -239,6 +270,7 @@ const PantallaInicio = ({ onIniciarPartida, onContinuarPartida, haySavedGame }) 
             <button
               onClick={() => setModoSeleccionado('personalizado')}
               className="rey-premium-button"
+              style={{ width: '100%', minWidth: '300px' }}
             >
               ANOTADOR
             </button>
